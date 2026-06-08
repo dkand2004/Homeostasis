@@ -1,0 +1,2194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homeostasis — QLD Senior Biology Unit 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e14;
+    --surface: #111827;
+    --surface2: #1a2535;
+    --border: #1e3a5f;
+    --accent: #00d4ff;
+    --accent2: #ff6b35;
+    --accent3: #7fff7f;
+    --accent4: #ffd700;
+    --text: #e8f4fd;
+    --muted: #7ba3c4;
+    --danger: #ff4757;
+    --purple: #a855f7;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top:0; z-index:100;
+    background: rgba(10,14,20,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; gap:0.3rem;
+    flex-wrap: wrap;
+    min-height: 52px;
+  }
+  nav a {
+    color: var(--muted); text-decoration:none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; font-weight:600; letter-spacing:0.08em;
+    padding: 6px 10px; border-radius: 4px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  nav a:hover, nav a.active { color: var(--accent); background: rgba(0,212,255,0.08); }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px; font-weight:700;
+    color: var(--accent); margin-right:1rem;
+    white-space: nowrap;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 92vh;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center;
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(0,212,255,0.07) 0%, transparent 70%),
+                radial-gradient(ellipse 60% 40% at 80% 80%, rgba(168,85,247,0.05) 0%, transparent 60%),
+                var(--bg);
+    padding: 4rem 2rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content:'';
+    position:absolute; inset:0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(0,212,255,0.04) 49px, rgba(0,212,255,0.04) 50px),
+                repeating-linear-gradient(90deg, transparent, transparent 49px, rgba(0,212,255,0.04) 49px, rgba(0,212,255,0.04) 50px);
+    pointer-events:none;
+  }
+  .hero-label {
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.2em;
+    color: var(--accent); text-transform:uppercase;
+    border: 1px solid rgba(0,212,255,0.3); border-radius:20px;
+    padding: 4px 16px; margin-bottom:1.5rem; display:inline-block;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem,8vw,7rem); font-weight:900;
+    line-height:1.05; letter-spacing:-0.02em;
+    background: linear-gradient(135deg, #fff 30%, var(--accent) 70%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+  }
+  .hero p {
+    color: var(--muted); font-size:1.15rem; max-width:600px;
+    margin-bottom: 2.5rem;
+  }
+  .hero-btns { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; }
+  .btn {
+    padding: 12px 28px; border-radius:6px; font-weight:600; font-size:14px;
+    cursor:pointer; transition: all 0.2s; text-decoration:none;
+    font-family:'IBM Plex Sans',sans-serif; border:none;
+    display:inline-block;
+  }
+  .btn-primary { background: var(--accent); color: #000; }
+  .btn-primary:hover { background:#fff; transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,212,255,0.3); }
+  .btn-ghost { background:transparent; color:var(--accent); border:1px solid var(--accent); }
+  .btn-ghost:hover { background:rgba(0,212,255,0.1); transform:translateY(-2px); }
+
+  /* SECTION LAYOUT */
+  .section {
+    max-width: 1100px; margin: 0 auto; padding: 5rem 2rem;
+  }
+  .section-header {
+    margin-bottom: 3rem;
+  }
+  .section-tag {
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.2em;
+    color: var(--accent2); text-transform:uppercase; margin-bottom:0.5rem;
+  }
+  .section-title {
+    font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,3rem);
+    font-weight:700; line-height:1.1; margin-bottom:1rem;
+  }
+  .section-sub { color:var(--muted); max-width:680px; font-size:1rem; }
+
+  /* CARDS */
+  .card-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1.5rem; }
+  .card {
+    background: var(--surface); border:1px solid var(--border);
+    border-radius:12px; padding:1.5rem;
+    transition: all 0.25s;
+    position:relative; overflow:hidden;
+  }
+  .card::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background: linear-gradient(90deg, var(--accent), var(--purple));
+  }
+  .card:hover { transform:translateY(-4px); border-color:var(--accent); box-shadow:0 12px 32px rgba(0,212,255,0.12); }
+  .card-icon { font-size:2rem; margin-bottom:0.75rem; }
+  .card h3 { font-size:1.1rem; font-weight:600; margin-bottom:0.5rem; }
+  .card p { color:var(--muted); font-size:0.9rem; }
+
+  /* DIVIDER */
+  .divider {
+    border:none; border-top:1px solid var(--border); margin: 0;
+  }
+
+  /* INTERACTIVE PANELS */
+  .interactive-box {
+    background: var(--surface2); border:1px solid var(--border);
+    border-radius:16px; padding:2rem; margin-top:2rem;
+  }
+  .interactive-box h3 {
+    font-family:'Playfair Display',serif; font-size:1.4rem; margin-bottom:0.5rem;
+  }
+  .interactive-box .subtitle { color:var(--muted); font-size:0.9rem; margin-bottom:1.5rem; }
+
+  /* NEURON DIAGRAM */
+  #neuron-svg text { font-family:'IBM Plex Mono',monospace; }
+  .neuron-label { display:none; }
+  .neuron-part { cursor:pointer; }
+  #neuron-info {
+    background:var(--surface); border:1px solid var(--accent);
+    border-radius:8px; padding:1rem 1.5rem; margin-top:1rem;
+    min-height:70px;
+  }
+  #neuron-info h4 { color:var(--accent); margin-bottom:0.3rem; }
+
+  /* ACTION POTENTIAL SIMULATOR */
+  #ap-canvas { width:100%; height:200px; background:#060b11; border-radius:8px; border:1px solid var(--border); display:block; }
+  .sim-controls { display:flex; gap:1rem; flex-wrap:wrap; align-items:center; margin-top:1rem; }
+  .sim-controls label { color:var(--muted); font-size:0.85rem; font-family:'IBM Plex Mono',monospace; }
+  .sim-controls input[type=range] { accent-color:var(--accent); width:140px; }
+  .sim-controls span { color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:0.85rem; min-width:40px; }
+
+  /* SYNAPSE ANIMATION */
+  #synapse-canvas { width:100%; height:260px; background:#060b11; border-radius:8px; border:1px solid var(--border); display:block; }
+
+  /* FEEDBACK DIAGRAM */
+  .feedback-flow {
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:center;
+    gap:0; margin:1.5rem 0;
+  }
+  .fb-node {
+    background:var(--surface); border:2px solid var(--border);
+    border-radius:10px; padding:0.8rem 1.2rem; text-align:center;
+    min-width:110px; cursor:pointer; transition:all 0.3s;
+    position:relative;
+  }
+  .fb-node .fb-label { font-size:0.75rem; color:var(--muted); font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:0.1em; }
+  .fb-node .fb-val { font-size:1rem; font-weight:600; margin-top:2px; }
+  .fb-node.active { border-color:var(--accent); background:rgba(0,212,255,0.1); box-shadow:0 0 16px rgba(0,212,255,0.2); }
+  .fb-arrow {
+    font-size:1.5rem; color:var(--accent); padding:0 0.5rem;
+    animation: pulse-arrow 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse-arrow { 0%,100%{opacity:0.4}50%{opacity:1} }
+  .fb-back {
+    width:100%; text-align:center; color:var(--accent3);
+    font-size:0.85rem; font-family:'IBM Plex Mono',monospace;
+    padding:0.5rem; border-top:1px dashed rgba(127,255,127,0.3);
+    margin-top:0.5rem;
+  }
+
+  /* THERMOREGULATION BODY */
+  #thermo-body { position:relative; width:220px; margin:0 auto; }
+  #thermo-temp-display {
+    font-family:'IBM Plex Mono',monospace; font-size:2.5rem;
+    text-align:center; font-weight:600; margin:1rem 0;
+    transition: color 0.5s;
+  }
+  .thermo-response {
+    display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-top:1rem;
+  }
+  .thermo-card {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:8px; padding:0.75rem; text-align:center;
+    transition: all 0.4s;
+  }
+  .thermo-card .t-icon { font-size:1.6rem; }
+  .thermo-card .t-name { font-size:0.8rem; color:var(--muted); margin-top:0.2rem; }
+  .thermo-card.active-hot { border-color:var(--accent2); background:rgba(255,107,53,0.12); }
+  .thermo-card.active-cold { border-color:#6eb4ff; background:rgba(110,180,255,0.12); }
+
+  /* KIDNEY ADH */
+  #kidney-canvas { width:100%; height:280px; background:#060b11; border-radius:8px; border:1px solid var(--border); display:block; }
+
+  /* RECEPTOR TYPES */
+  .receptor-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1rem; }
+  .receptor-card {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:10px; padding:1.2rem; cursor:pointer;
+    transition:all 0.2s; text-align:center;
+  }
+  .receptor-card:hover, .receptor-card.selected {
+    border-color:var(--accent4); background:rgba(255,215,0,0.06);
+    transform:translateY(-3px);
+  }
+  .receptor-card .r-icon { font-size:2.2rem; }
+  .receptor-card .r-name { font-weight:700; font-size:1rem; margin:0.3rem 0; }
+  .receptor-card .r-type { font-size:0.75rem; color:var(--muted); font-family:'IBM Plex Mono',monospace; text-transform:uppercase; }
+  #receptor-detail {
+    background:var(--surface); border:1px solid var(--accent4);
+    border-radius:10px; padding:1.5rem; margin-top:1.5rem;
+    display:none;
+  }
+  #receptor-detail h4 { color:var(--accent4); font-size:1.1rem; margin-bottom:0.5rem; }
+
+  /* STOMATA COMPARISON */
+  .stomata-table { width:100%; border-collapse:collapse; margin-top:1rem; }
+  .stomata-table th { background:var(--surface2); color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em; padding:0.75rem 1rem; text-align:left; border:1px solid var(--border); }
+  .stomata-table td { padding:0.75rem 1rem; border:1px solid var(--border); font-size:0.9rem; }
+  .stomata-table tr:hover td { background:rgba(0,212,255,0.04); }
+
+  /* TABS */
+  .tabs { display:flex; gap:0; border-bottom:2px solid var(--border); margin-bottom:2rem; overflow-x:auto; }
+  .tab-btn {
+    padding:10px 20px; background:none; border:none; color:var(--muted);
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.08em;
+    text-transform:uppercase; cursor:pointer; border-bottom:2px solid transparent;
+    margin-bottom:-2px; transition:all 0.2s; white-space:nowrap;
+  }
+  .tab-btn.active { color:var(--accent); border-bottom-color:var(--accent); }
+  .tab-btn:hover { color:var(--text); }
+  .tab-panel { display:none; }
+  .tab-panel.active { display:block; }
+
+  /* QUIZ */
+  .quiz-q { background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:1.5rem; margin-bottom:1rem; }
+  .quiz-q p { font-weight:500; margin-bottom:1rem; }
+  .quiz-options { display:flex; flex-direction:column; gap:0.5rem; }
+  .quiz-opt {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:6px; padding:0.6rem 1rem; cursor:pointer;
+    font-size:0.9rem; transition:all 0.2s; text-align:left;
+    color:var(--text); font-family:'IBM Plex Sans',sans-serif;
+  }
+  .quiz-opt:hover { border-color:var(--accent); background:rgba(0,212,255,0.06); }
+  .quiz-opt.correct { border-color:var(--accent3); background:rgba(127,255,127,0.1); color:var(--accent3); }
+  .quiz-opt.wrong { border-color:var(--danger); background:rgba(255,71,87,0.1); color:var(--danger); }
+  .quiz-feedback { font-size:0.85rem; color:var(--muted); margin-top:0.5rem; font-style:italic; }
+
+  /* PROGRESS BAR */
+  .progress-bar {
+    width:100%; height:4px; background:var(--border); border-radius:2px; margin-top:0.5rem;
+  }
+  .progress-fill { height:100%; background: linear-gradient(90deg, var(--accent), var(--purple)); border-radius:2px; transition: width 0.5s; }
+
+  /* HORMONE ANIMATION */
+  #hormone-canvas { width:100%; height:220px; background:#060b11; border-radius:8px; border:1px solid var(--border); display:block; }
+
+  /* PLANT WATER */
+  #plant-canvas { width:100%; height:260px; background:#060b11; border-radius:8px; border:1px solid var(--border); display:block; }
+
+  /* ANALOGY BOXES */
+  .analogy {
+    border-left:4px solid var(--accent4);
+    background:rgba(255,215,0,0.04);
+    border-radius:0 8px 8px 0;
+    padding:1rem 1.5rem; margin:1.5rem 0;
+  }
+  .analogy .analogy-tag { font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.15em; color:var(--accent4); margin-bottom:0.3rem; }
+  .analogy p { font-size:0.95rem; }
+
+  /* KEY TERMS */
+  .term-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:0.75rem; }
+  .term-item {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:8px; padding:0.75rem 1rem;
+  }
+  .term-item .term { color:var(--accent); font-weight:600; font-size:0.9rem; }
+  .term-item .def { color:var(--muted); font-size:0.82rem; margin-top:0.2rem; }
+
+  /* FOOTER */
+  footer { border-top:1px solid var(--border); padding:2rem; text-align:center; color:var(--muted); font-size:0.82rem; font-family:'IBM Plex Mono',monospace; }
+
+  /* SECTION BG ALTERNATES */
+  .bg-alt { background: linear-gradient(180deg, rgba(0,212,255,0.02) 0%, transparent 100%); }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width:6px; height:6px; }
+  ::-webkit-scrollbar-track { background:var(--bg); }
+  ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+
+  /* HIGHLIGHT */
+  .highlight { color:var(--accent); font-weight:600; }
+  .highlight2 { color:var(--accent2); font-weight:600; }
+  .highlight3 { color:var(--accent3); font-weight:600; }
+
+  /* RESPONSIVE */
+  @media(max-width:600px){
+    .hero h1 { font-size:2.8rem; }
+    .thermo-response { grid-template-columns:1fr 1fr; }
+  }
+
+  /* POSITIVE FEEDBACK */
+  #clot-canvas { width:100%; height:240px; background:#060b11; border-radius:8px; border:1px solid var(--border); display:block; }
+  #birth-canvas { width:100%; height:240px; background:#060b11; border-radius:8px; border:1px solid var(--border); display:block; }
+  .pf-compare { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-top:1.5rem; }
+  @media(max-width:640px){ .pf-compare { grid-template-columns:1fr; } }
+  .pf-box { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.5rem; }
+  .pf-box.neg { border-top:3px solid var(--accent3); }
+  .pf-box.pos { border-top:3px solid var(--accent2); }
+  .pf-box h4 { font-family:'Playfair Display',serif; font-size:1.1rem; margin-bottom:0.5rem; }
+  .fb-forward { width:100%; text-align:center; color:var(--accent2); font-size:0.85rem; font-family:'IBM Plex Mono',monospace; padding:0.5rem; border-top:1px dashed rgba(255,107,53,0.4); margin-top:0.5rem; }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">🧬 Bio U2</span>
+  <a href="#homeostasis">Homeostasis</a>
+  <a href="#receptors">Receptors</a>
+  <a href="#positive-feedback">Positive Feedback</a>
+  <a href="#neurons">Neurons</a>
+  <a href="#action-potential">Action Potential</a>
+  <a href="#synapse">Synapse</a>
+  <a href="#hormones">Hormones</a>
+  <a href="#thermoregulation">Thermoregulation</a>
+  <a href="#osmoregulation">Osmoregulation</a>
+  <a href="#plants">Plants</a>
+  <a href="#quiz">Quiz</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-label">QLD Senior Biology · Unit 2 · Topic 1</div>
+  <h1>Homeostasis</h1>
+  <p>Explore how living organisms maintain a stable internal environment through nervous and endocrine control, feedback systems, and remarkable adaptive strategies.</p>
+  <div class="hero-btns">
+    <a href="#homeostasis" class="btn btn-primary">Start Learning</a>
+    <a href="#quiz" class="btn btn-ghost">Test Yourself</a>
+  </div>
+</section>
+
+<!-- 1. HOMEOSTASIS OVERVIEW -->
+<section class="section" id="homeostasis">
+  <div class="section-header">
+    <div class="section-tag">01 · Overview</div>
+    <h2 class="section-title">What is Homeostasis?</h2>
+    <p class="section-sub">The process by which organisms regulate their internal environment to maintain conditions within tolerable limits — essential for enzyme function and metabolism.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="analogy-tag">🏠 Analogy</div>
+    <p><strong>Homeostasis is like a smart thermostat in your house.</strong> The thermostat detects temperature (stimulus), the controller compares it to the set point, and the heater or AC turns on (effector) to bring temperature back to normal. Your body runs <em>thousands</em> of these loops simultaneously.</p>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">🎯</div>
+      <h3>Stimulus-Response Model</h3>
+      <p>Any change in the environment (stimulus) → detected by receptor → signal sent to control centre → effector responds → environment returns to set point.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔄</div>
+      <h3>Negative Feedback</h3>
+      <p>The most common control system. The response <em>opposes</em> the original change, restoring equilibrium. Example: rising blood glucose triggers insulin release to <em>lower</em> glucose.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">⚡</div>
+      <h3>Nervous vs Endocrine</h3>
+      <p>Nervous system: fast, electrical, short-lived, targeted. Endocrine system: slower, chemical (hormones), longer-lasting, broadcast via blood.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧪</div>
+      <h3>Why It Matters</h3>
+      <p>Enzymes have narrow optimal ranges (pH, temp). Deviating outside these limits denatures enzymes, halting metabolism. Homeostasis keeps conditions in the "Goldilocks zone".</p>
+    </div>
+  </div>
+
+  <!-- INTERACTIVE FEEDBACK DIAGRAM -->
+  <div class="interactive-box" id="feedback-sim">
+    <h3>🔄 Interactive Negative Feedback Loop</h3>
+    <p class="subtitle">Click each component to learn its role. Use the buttons to simulate a temperature challenge.</p>
+    <div class="feedback-flow" id="fb-flow">
+      <div class="fb-node" id="fb-stim" onclick="fbClick('stim')">
+        <div class="fb-label">Stimulus</div>
+        <div class="fb-val" id="fb-stim-v">↑ Body Temp</div>
+      </div>
+      <div class="fb-arrow">→</div>
+      <div class="fb-node" id="fb-rec" onclick="fbClick('rec')">
+        <div class="fb-label">Receptor</div>
+        <div class="fb-val">Thermoreceptors</div>
+      </div>
+      <div class="fb-arrow">→</div>
+      <div class="fb-node" id="fb-cc" onclick="fbClick('cc')">
+        <div class="fb-label">Control Centre</div>
+        <div class="fb-val">Hypothalamus</div>
+      </div>
+      <div class="fb-arrow">→</div>
+      <div class="fb-node" id="fb-eff" onclick="fbClick('eff')">
+        <div class="fb-label">Effector</div>
+        <div class="fb-val">Sweat glands</div>
+      </div>
+      <div class="fb-arrow">→</div>
+      <div class="fb-node" id="fb-resp" onclick="fbClick('resp')">
+        <div class="fb-label">Response</div>
+        <div class="fb-val">↓ Body Temp</div>
+      </div>
+    </div>
+    <div class="fb-back">⟵ Negative Feedback: response opposes the original stimulus ⟵</div>
+    <div id="fb-desc" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1rem;margin-top:1rem;min-height:50px;color:var(--muted);font-size:0.9rem;">
+      Click any component above to learn what it does.
+    </div>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;">
+      <button class="btn btn-primary" onclick="fbSimulate('hot')">🌡️ Simulate Heat Stress</button>
+      <button class="btn btn-ghost" onclick="fbSimulate('cold')">❄️ Simulate Cold Stress</button>
+      <button class="btn btn-ghost" style="border-color:var(--accent3);color:var(--accent3)" onclick="fbSimulate('blood')">🩸 Blood Glucose</button>
+    </div>
+  </div>
+</section>
+
+
+<hr class="divider">
+
+<!-- 2. SENSORY RECEPTORS -->
+<section class="section bg-alt" id="receptors">
+  <div class="section-header">
+    <div class="section-tag">02 · Receptors</div>
+    <h2 class="section-title">Types of Sensory Receptors</h2>
+    <p class="section-sub">Specialised cells that convert specific stimuli into nerve signals. Click each receptor type to explore its role.</p>
+  </div>
+
+  <div class="receptor-grid" id="receptor-grid">
+    <div class="receptor-card" onclick="selectReceptor('chemo')">
+      <div class="r-icon">🧪</div>
+      <div class="r-name">Chemoreceptor</div>
+      <div class="r-type">Chemical stimuli</div>
+    </div>
+    <div class="receptor-card" onclick="selectReceptor('thermo')">
+      <div class="r-icon">🌡️</div>
+      <div class="r-name">Thermoreceptor</div>
+      <div class="r-type">Temperature stimuli</div>
+    </div>
+    <div class="receptor-card" onclick="selectReceptor('mechano')">
+      <div class="r-icon">👂</div>
+      <div class="r-name">Mechanoreceptor</div>
+      <div class="r-type">Mechanical stimuli</div>
+    </div>
+    <div class="receptor-card" onclick="selectReceptor('photo')">
+      <div class="r-icon">👁️</div>
+      <div class="r-name">Photoreceptor</div>
+      <div class="r-type">Light stimuli</div>
+    </div>
+    <div class="receptor-card" onclick="selectReceptor('noci')">
+      <div class="r-icon">⚠️</div>
+      <div class="r-name">Nociceptor</div>
+      <div class="r-type">Pain / damaging stimuli</div>
+    </div>
+  </div>
+
+  <div id="receptor-detail">
+    <h4 id="rd-title"></h4>
+    <p id="rd-body"></p>
+    <div style="margin-top:0.75rem;font-size:0.85rem;color:var(--accent2);" id="rd-example"></div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- POSITIVE FEEDBACK -->
+<section class="section" id="positive-feedback">
+  <div class="section-header">
+    <div class="section-tag">01b · Positive Feedback</div>
+    <h2 class="section-title">Positive Feedback Loops</h2>
+    <p class="section-sub">Unlike negative feedback, positive feedback <em>amplifies</em> the original stimulus — pushing the system further away from the starting point until a dramatic endpoint is reached, then stopping.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="analogy-tag">🎤 Analogy</div>
+    <p><strong>Positive feedback is like microphone feedback.</strong> A small sound enters the mic → speaker amplifies it → mic picks it up again → even louder → screech! It escalates until someone removes the mic (the endpoint). In biology, the "someone removing the mic" is the completion of the event — e.g. the clot forms and stops the bleeding, or the baby is born and oxytocin drops.</p>
+  </div>
+
+  <div class="pf-compare">
+    <div class="pf-box neg">
+      <h4 style="color:var(--accent3)">✅ Negative Feedback</h4>
+      <p style="color:var(--muted);font-size:0.9rem;">Response <strong>opposes</strong> the stimulus. Returns system to set point. Used for ongoing regulation (temperature, blood glucose, osmolarity). Most common homeostatic mechanism.</p>
+      <div class="fb-back">⟵ Dampens the change ⟵</div>
+    </div>
+    <div class="pf-box pos">
+      <h4 style="color:var(--accent2)">⚡ Positive Feedback</h4>
+      <p style="color:var(--muted);font-size:0.9rem;">Response <strong>amplifies</strong> the stimulus. Pushes system further from starting point. Used when a rapid, all-or-nothing outcome is needed. Always has a definite endpoint.</p>
+      <div class="fb-forward">⟶ Amplifies the change ⟶</div>
+    </div>
+  </div>
+
+  <!-- BLOOD CLOTTING -->
+  <div class="interactive-box" style="margin-top:2rem;">
+    <h3>🩸 Blood Clotting (Coagulation Cascade)</h3>
+    <p class="subtitle">Each clotting factor activates more clotting factors — a classic positive feedback cascade. Click "Injure Vessel" to trigger it.</p>
+    <canvas id="clot-canvas"></canvas>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;">
+      <button class="btn btn-primary" onclick="startClot()">🩸 Injure Vessel</button>
+      <button class="btn btn-ghost" onclick="resetClot()">Reset</button>
+    </div>
+    <div id="clot-status" style="margin-top:1rem;padding:0.75rem 1rem;background:var(--surface);border-radius:6px;font-family:'IBM Plex Mono',monospace;font-size:0.85rem;color:var(--muted);">
+      Ready. Click "Injure Vessel" to begin the coagulation cascade.
+    </div>
+    <div style="margin-top:1.5rem;">
+      <h4 style="font-family:'Playfair Display',serif;margin-bottom:0.75rem;">How the cascade works:</h4>
+      <ol style="padding-left:1.5rem;display:flex;flex-direction:column;gap:0.5rem;color:var(--muted);font-size:0.9rem;">
+        <li><span style="color:var(--accent2);font-weight:600;">Vessel damage</span> → exposes collagen → platelets adhere and release chemical signals.</li>
+        <li>Signals activate <span style="color:var(--accent2);font-weight:600;">clotting factors</span> (a cascade of ~12 proteins).</li>
+        <li>Each activated factor activates <em>more</em> of the next factor — <span style="color:var(--accent2);font-weight:600;">amplification</span>.</li>
+        <li>Prothrombin → <strong>Thrombin</strong> (key enzyme) → Fibrinogen → <strong>Fibrin</strong> mesh forms.</li>
+        <li>Platelets trapped in fibrin mesh → stable <span style="color:var(--accent2);font-weight:600;">blood clot</span> (endpoint reached).</li>
+        <li>Clot formation <em>stops</em> the positive feedback. Anticoagulants (e.g. antithrombin) prevent runaway clotting.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- CHILDBIRTH -->
+  <div class="interactive-box" style="margin-top:2rem;">
+    <h3>👶 Childbirth — Oxytocin Positive Feedback</h3>
+    <p class="subtitle">Uterine contractions trigger more oxytocin, causing stronger contractions — until the baby is born (endpoint). Click "Begin Labour" to simulate.</p>
+    <canvas id="birth-canvas"></canvas>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;">
+      <button class="btn btn-primary" onclick="startBirth()">👶 Begin Labour</button>
+      <button class="btn btn-ghost" onclick="resetBirth()">Reset</button>
+    </div>
+    <div id="birth-status" style="margin-top:1rem;padding:0.75rem 1rem;background:var(--surface);border-radius:6px;font-family:'IBM Plex Mono',monospace;font-size:0.85rem;color:var(--muted);">
+      Ready. Click "Begin Labour" to start the oxytocin feedback loop.
+    </div>
+    <div style="margin-top:1.5rem;">
+      <h4 style="font-family:'Playfair Display',serif;margin-bottom:0.75rem;">The oxytocin loop:</h4>
+      <ol style="padding-left:1.5rem;display:flex;flex-direction:column;gap:0.5rem;color:var(--muted);font-size:0.9rem;">
+        <li><span style="color:var(--purple);font-weight:600;">Baby's head</span> presses on cervix → stretch receptors activated.</li>
+        <li>Nerve signals → hypothalamus → posterior pituitary releases <span style="color:var(--purple);font-weight:600;">oxytocin</span>.</li>
+        <li>Oxytocin reaches uterus → stronger <span style="color:var(--purple);font-weight:600;">contractions</span>.</li>
+        <li>Stronger contractions push baby harder → <span style="color:var(--purple);font-weight:600;">more oxytocin released</span> — positive feedback!</li>
+        <li><span style="color:var(--purple);font-weight:600;">Endpoint:</span> baby is born → cervix no longer stretched → oxytocin drops → loop ends.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+
+<hr class="divider">
+
+<!-- 3. NEURON STRUCTURE -->
+<section class="section" id="neurons">
+  <div class="section-header">
+    <div class="section-tag">03 · Neurons</div>
+    <h2 class="section-title">Structure & Function of Nerve Cells</h2>
+    <p class="section-sub">Click on any part of the neuron diagram below to learn its function.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="analogy-tag">🚇 Analogy</div>
+    <p><strong>A neuron is like a subway line.</strong> Dendrites are the entrances collecting passengers (signals), the soma is the central station that processes them, the axon is the tunnel, myelin sheath is the express tunnel walls (faster travel!), nodes of Ranvier are the ventilation gaps, and the axon terminal is the destination exit platform.</p>
+  </div>
+
+  <div class="interactive-box">
+    <h3>🧠 Interactive Neuron Diagram</h3>
+    <p class="subtitle">Click any labelled part to see its description below.</p>
+    <svg id="neuron-svg" viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <!-- Dendrites -->
+      <g class="neuron-part" onclick="showNeuronPart('dendrites')" id="np-dendrites">
+        <line x1="60" y1="80" x2="130" y2="110" stroke="#7ba3c4" stroke-width="3" stroke-linecap="round"/>
+        <line x1="50" y1="100" x2="130" y2="110" stroke="#7ba3c4" stroke-width="3" stroke-linecap="round"/>
+        <line x1="55" y1="120" x2="130" y2="110" stroke="#7ba3c4" stroke-width="3" stroke-linecap="round"/>
+        <line x1="65" y1="135" x2="130" y2="110" stroke="#7ba3c4" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="60" cy="80" r="5" fill="#7ba3c4"/>
+        <circle cx="50" cy="100" r="5" fill="#7ba3c4"/>
+        <circle cx="55" cy="120" r="5" fill="#7ba3c4"/>
+        <circle cx="65" cy="135" r="5" fill="#7ba3c4"/>
+        <text x="25" y="72" fill="#e8f4fd" font-size="11" font-family="IBM Plex Mono">Dendrites</text>
+      </g>
+      <!-- Soma -->
+      <g class="neuron-part" onclick="showNeuronPart('soma')" id="np-soma">
+        <ellipse cx="160" cy="110" rx="35" ry="35" fill="#1a2535" stroke="#00d4ff" stroke-width="2"/>
+        <circle cx="160" cy="110" r="10" fill="#00d4ff" opacity="0.4"/>
+        <text x="148" y="165" fill="#e8f4fd" font-size="11" font-family="IBM Plex Mono">Soma</text>
+      </g>
+      <!-- Axon -->
+      <g class="neuron-part" onclick="showNeuronPart('axon')" id="np-axon">
+        <line x1="195" y1="110" x2="780" y2="110" stroke="#a855f7" stroke-width="5" stroke-linecap="round"/>
+        <text x="460" y="140" fill="#e8f4fd" font-size="11" font-family="IBM Plex Mono" text-anchor="middle">Axon</text>
+      </g>
+      <!-- Myelin Sheath segments -->
+      <g class="neuron-part" onclick="showNeuronPart('myelin')" id="np-myelin">
+        <rect x="210" y="100" width="60" height="22" rx="11" fill="rgba(255,215,0,0.2)" stroke="#ffd700" stroke-width="1.5"/>
+        <rect x="290" y="100" width="60" height="22" rx="11" fill="rgba(255,215,0,0.2)" stroke="#ffd700" stroke-width="1.5"/>
+        <rect x="370" y="100" width="60" height="22" rx="11" fill="rgba(255,215,0,0.2)" stroke="#ffd700" stroke-width="1.5"/>
+        <rect x="450" y="100" width="60" height="22" rx="11" fill="rgba(255,215,0,0.2)" stroke="#ffd700" stroke-width="1.5"/>
+        <rect x="530" y="100" width="60" height="22" rx="11" fill="rgba(255,215,0,0.2)" stroke="#ffd700" stroke-width="1.5"/>
+        <rect x="610" y="100" width="60" height="22" rx="11" fill="rgba(255,215,0,0.2)" stroke="#ffd700" stroke-width="1.5"/>
+        <text x="450" y="88" fill="#ffd700" font-size="11" font-family="IBM Plex Mono" text-anchor="middle">Myelin Sheath</text>
+      </g>
+      <!-- Nodes of Ranvier -->
+      <g class="neuron-part" onclick="showNeuronPart('nodes')" id="np-nodes">
+        <circle cx="278" cy="111" r="5" fill="#ff6b35"/>
+        <circle cx="358" cy="111" r="5" fill="#ff6b35"/>
+        <circle cx="438" cy="111" r="5" fill="#ff6b35"/>
+        <circle cx="518" cy="111" r="5" fill="#ff6b35"/>
+        <circle cx="598" cy="111" r="5" fill="#ff6b35"/>
+        <text x="358" y="175" fill="#ff6b35" font-size="11" font-family="IBM Plex Mono" text-anchor="middle">Nodes of Ranvier</text>
+      </g>
+      <!-- Axon Terminal -->
+      <g class="neuron-part" onclick="showNeuronPart('terminal')" id="np-terminal">
+        <line x1="780" y1="110" x2="810" y2="80" stroke="#7fff7f" stroke-width="3"/>
+        <line x1="780" y1="110" x2="815" y2="100" stroke="#7fff7f" stroke-width="3"/>
+        <line x1="780" y1="110" x2="815" y2="120" stroke="#7fff7f" stroke-width="3"/>
+        <line x1="780" y1="110" x2="810" y2="140" stroke="#7fff7f" stroke-width="3"/>
+        <circle cx="810" cy="80" r="5" fill="#7fff7f"/>
+        <circle cx="815" cy="100" r="5" fill="#7fff7f"/>
+        <circle cx="815" cy="120" r="5" fill="#7fff7f"/>
+        <circle cx="810" cy="140" r="5" fill="#7fff7f"/>
+        <text x="835" y="114" fill="#7fff7f" font-size="11" font-family="IBM Plex Mono">Axon Terminal</text>
+      </g>
+    </svg>
+    <div id="neuron-info">
+      <h4 id="ni-title">Click a neuron part above ↑</h4>
+      <p id="ni-desc" style="color:var(--muted);font-size:0.9rem;">Each part of the neuron has a specialised function in receiving and transmitting nerve signals.</p>
+    </div>
+
+    <div style="margin-top:2rem;">
+      <h3 style="font-family:'Playfair Display',serif;margin-bottom:1rem;">Three Types of Neurons</h3>
+      <div class="card-grid">
+        <div class="card" style="--card-accent:var(--accent);">
+          <div class="card-icon">📡</div>
+          <h3 style="color:var(--accent)">Sensory Neurons</h3>
+          <p>Carry signals FROM receptors TOWARD the central nervous system (afferent). Detect changes in the environment.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🔗</div>
+          <h3 style="color:var(--purple)">Interneurons</h3>
+          <p>Located entirely within the CNS. Connect sensory to motor neurons, integrate and process information.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">💪</div>
+          <h3 style="color:var(--accent3)">Motor Neurons</h3>
+          <p>Carry signals FROM CNS TO effectors (muscles/glands) — efferent. Produce the physical response.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- 4. ACTION POTENTIAL -->
+<section class="section bg-alt" id="action-potential">
+  <div class="section-header">
+    <div class="section-tag">04 · Nerve Impulse</div>
+    <h2 class="section-title">Action Potential Simulator</h2>
+    <p class="section-sub">Visualise how an electrical impulse travels along an axon. Adjust the stimulus strength to see threshold effects.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="analogy-tag">🏄 Analogy</div>
+    <p><strong>An action potential is like a row of falling dominoes.</strong> Once the first domino tips past the threshold, the chain reaction is unstoppable — all-or-nothing. Once fallen, each domino "resets" (refractory period) before it can fall again.</p>
+  </div>
+
+  <div class="interactive-box">
+    <h3>⚡ Action Potential Simulation</h3>
+    <p class="subtitle">Adjust stimulus strength. Below threshold: no impulse. Above threshold: full action potential fires!</p>
+    <canvas id="ap-canvas"></canvas>
+    <div class="sim-controls">
+      <label>Stimulus Strength:</label>
+      <input type="range" min="0" max="100" value="0" id="ap-slider" oninput="updateAP()">
+      <span id="ap-val">0%</span>
+      <button class="btn btn-primary" style="padding:8px 16px;font-size:13px" onclick="fireAP()">🔥 Fire Impulse</button>
+      <button class="btn btn-ghost" style="padding:8px 16px;font-size:13px" onclick="resetAP()">Reset</button>
+    </div>
+    <div id="ap-status" style="margin-top:1rem;padding:0.75rem 1rem;background:var(--surface);border-radius:6px;font-family:'IBM Plex Mono',monospace;font-size:0.85rem;color:var(--muted);">
+      Set stimulus above <span style="color:var(--accent2)">threshold (~55%)</span> then click Fire Impulse.
+    </div>
+
+    <div style="margin-top:2rem;">
+      <h4 style="margin-bottom:1rem;font-family:'Playfair Display',serif;">Phases of the Action Potential</h4>
+      <div class="card-grid">
+        <div class="card" onclick="">
+          <div class="card-icon">💤</div>
+          <h3>Resting Potential</h3>
+          <p>Inside of axon is −70mV relative to outside. Na⁺/K⁺ pump maintains this by moving 3 Na⁺ out for every 2 K⁺ in.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">📈</div>
+          <h3>Depolarisation</h3>
+          <p>Stimulus opens Na⁺ channels. Na⁺ rushes IN, making interior more positive (up to +30mV). Threshold: −55mV.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">📉</div>
+          <h3>Repolarisation</h3>
+          <p>Na⁺ channels close, K⁺ channels open. K⁺ rushes OUT, restoring negative charge inside.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🔄</div>
+          <h3>Refractory Period</h3>
+          <p>Brief period when axon cannot fire again. Ensures impulse travels in ONE direction only.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- 5. SYNAPSE -->
+<section class="section" id="synapse">
+  <div class="section-header">
+    <div class="section-tag">05 · Synaptic Transmission</div>
+    <h2 class="section-title">The Synapse</h2>
+    <p class="section-sub">How nerve signals cross the gap between neurons using chemical neurotransmitters.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="analogy-tag">📬 Analogy</div>
+    <p><strong>Synaptic transmission is like sending a letter across a river.</strong> The presynaptic neuron is the sender — it packages the message (neurotransmitter) into envelopes (vesicles) and launches them across the river (synaptic cleft). Receptors on the postsynaptic neuron are the mailboxes — only the right envelope fits the right mailbox, triggering signal transduction inside the cell.</p>
+  </div>
+
+  <div class="interactive-box">
+    <h3>🔬 Synapse Animation</h3>
+    <p class="subtitle">Click "Transmit Signal" to watch neurotransmitter release across the synaptic cleft.</p>
+    <canvas id="synapse-canvas"></canvas>
+    <div style="display:flex;gap:1rem;margin-top:1rem;flex-wrap:wrap;">
+      <button class="btn btn-primary" onclick="transmitSynapse()">⚡ Transmit Signal</button>
+      <button class="btn btn-ghost" onclick="resetSynapse()">Reset</button>
+    </div>
+    <div id="synapse-status" style="margin-top:1rem;padding:0.75rem 1rem;background:var(--surface);border-radius:6px;font-family:'IBM Plex Mono',monospace;font-size:0.85rem;color:var(--muted);">
+      Ready. Click "Transmit Signal" to begin.
+    </div>
+
+    <div style="margin-top:2rem">
+      <h4 style="font-family:'Playfair Display',serif;margin-bottom:1rem;">Steps of Synaptic Transmission</h4>
+      <ol style="padding-left:1.5rem;display:flex;flex-direction:column;gap:0.6rem;color:var(--muted);font-size:0.9rem;">
+        <li>Action potential reaches <span class="highlight">axon terminal</span> of presynaptic neuron.</li>
+        <li>Voltage-gated Ca²⁺ channels open; Ca²⁺ enters axon terminal.</li>
+        <li><span class="highlight">Vesicles</span> containing neurotransmitters fuse with presynaptic membrane (exocytosis).</li>
+        <li><span class="highlight">Neurotransmitters</span> diffuse across the <span class="highlight">synaptic cleft</span> (~20–40 nm gap).</li>
+        <li>Neurotransmitters bind to specific <span class="highlight">receptors</span> on postsynaptic membrane.</li>
+        <li><span class="highlight">Signal transduction</span>: receptor binding changes ion channel state, generating EPSP or IPSP.</li>
+        <li>Neurotransmitters removed: enzymatic breakdown (e.g. acetylcholinesterase) or reuptake.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- 6. HORMONES -->
+<section class="section bg-alt" id="hormones">
+  <div class="section-header">
+    <div class="section-tag">06 · Endocrine System</div>
+    <h2 class="section-title">Hormones & Cell Signalling</h2>
+    <p class="section-sub">How chemical messengers travel through the blood to reach only target cells displaying specific receptors.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="analogy-tag">📻 Analogy</div>
+    <p><strong>Hormones are like radio broadcasts.</strong> The signal goes everywhere, but only radios (cells) tuned to the right frequency (receptor type) actually receive the message. A cell's sensitivity depends on how many receptors it displays — more receptors = louder signal.</p>
+  </div>
+
+  <div class="interactive-box">
+    <h3>🩸 Hormone Circulation Animation</h3>
+    <p class="subtitle">Watch hormones broadcast through the bloodstream — only cells with matching receptors respond.</p>
+    <canvas id="hormone-canvas"></canvas>
+    <div style="display:flex;gap:1rem;margin-top:1rem;flex-wrap:wrap;">
+      <button class="btn btn-primary" onclick="releaseHormone()">💉 Release Hormone</button>
+      <button class="btn btn-ghost" onclick="resetHormone()">Reset</button>
+    </div>
+
+    <div style="margin-top:2rem">
+      <h4 style="font-family:'Playfair Display',serif;margin-bottom:1rem;">Key Concepts</h4>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon">🎯</div>
+          <h3>Specificity</h3>
+          <p>Only cells with <span class="highlight">complementary receptors</span> respond to a hormone. Lock-and-key principle applies.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">📊</div>
+          <h3>Sensitivity</h3>
+          <p>More receptors displayed = greater sensitivity to the hormone. Cells can up- or down-regulate receptor numbers.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🔄</div>
+          <h3>Signal Transduction</h3>
+          <p>Receptor binding triggers an internal cascade of molecular changes, altering cell activity (e.g. enzyme activation, gene expression).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- 7. THERMOREGULATION -->
+<section class="section" id="thermoregulation">
+  <div class="section-header">
+    <div class="section-tag">07 · Thermoregulation</div>
+    <h2 class="section-title">Body Temperature Control</h2>
+    <p class="section-sub">Endotherms use structural, behavioural, and physiological mechanisms to maintain core temperature.</p>
+  </div>
+
+  <div class="tabs" id="thermo-tabs">
+    <button class="tab-btn active" onclick="switchTab('thermo', 'human')">Human Thermoregulation</button>
+    <button class="tab-btn" onclick="switchTab('thermo', 'endo')">Endotherm Strategies</button>
+    <button class="tab-btn" onclick="switchTab('thermo', 'feedback')">Feedback Diagram</button>
+  </div>
+
+  <!-- HUMAN TAB -->
+  <div class="tab-panel active" id="thermo-human">
+    <div class="interactive-box">
+      <h3>🌡️ Human Thermoregulation Simulator</h3>
+      <p class="subtitle">Use the slider to change environmental temperature and observe physiological responses.</p>
+      <div style="display:flex;gap:2rem;flex-wrap:wrap;align-items:flex-start;">
+        <div style="flex:1;min-width:200px;">
+          <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem;">
+            <label style="color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:0.85rem;">Environment:</label>
+            <input type="range" min="-10" max="45" value="37" id="thermo-slider" oninput="updateThermo()" style="width:140px;accent-color:var(--accent)">
+            <span id="thermo-env-val" style="color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:0.9rem;">37°C</span>
+          </div>
+          <div id="thermo-temp-display">37.0°C</div>
+          <div style="color:var(--muted);font-size:0.85rem;text-align:center;font-family:'IBM Plex Mono',monospace;" id="thermo-status">Normal body temperature</div>
+        </div>
+        <div style="flex:2;min-width:260px;">
+          <div class="thermo-response">
+            <div class="thermo-card" id="tc-sweat">
+              <div class="t-icon">💧</div>
+              <div class="t-name">Sweating</div>
+            </div>
+            <div class="thermo-card" id="tc-vasodilate">
+              <div class="t-icon">🩸</div>
+              <div class="t-name">Vasodilation</div>
+            </div>
+            <div class="thermo-card" id="tc-shiver">
+              <div class="t-icon">🥶</div>
+              <div class="t-name">Shivering</div>
+            </div>
+            <div class="thermo-card" id="tc-vasoconstrict">
+              <div class="t-icon">❄️</div>
+              <div class="t-name">Vasoconstriction</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ENDOTHERM TAB -->
+  <div class="tab-panel" id="thermo-endo">
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">🟫</div>
+        <h3>Brown Adipose Tissue</h3>
+        <p><strong>Structural.</strong> Specialised fat rich in mitochondria. Burns fat directly to produce heat (non-shivering thermogenesis). Common in infants and hibernating animals.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧥</div>
+        <h3>Insulation</h3>
+        <p><strong>Structural.</strong> Fur, feathers, blubber — trap air or create barriers to reduce heat loss. Fur erection (piloerection) increases insulating layer thickness.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🤝</div>
+        <h3>Kleptothermy</h3>
+        <p><strong>Behavioural.</strong> Stealing/borrowing heat from another animal. E.g. pythons coiling around eggs; some fish sheltering in warm-bodied hosts.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🐻</div>
+        <h3>Hibernation</h3>
+        <p><strong>Behavioural.</strong> Extended torpor during winter. Metabolic rate drops dramatically, body temp falls, breathing slows. Bears, ground squirrels, hedgehogs.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🐚</div>
+        <h3>Aestivation</h3>
+        <p><strong>Behavioural.</strong> Summer equivalent of hibernation. Animals survive hot/dry conditions in a dormant state. Lungfish, snails, some amphibians.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">😴</div>
+        <h3>Torpor</h3>
+        <p><strong>Behavioural.</strong> Short-term daily metabolic suppression. Hummingbirds enter torpor each night to conserve energy, re-warming each morning.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌬️</div>
+        <h3>Evaporative Heat Loss</h3>
+        <p><strong>Physiological.</strong> Sweating, panting — water evaporating from skin/respiratory surfaces carries away large amounts of heat energy.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔥</div>
+        <h3>Thermogenesis</h3>
+        <p><strong>Physiological.</strong> Shivering (rapid muscle contractions produce heat) and non-shivering thermogenesis (brown fat uncoupling).</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🩸</div>
+        <h3>Vasomotor Control</h3>
+        <p><strong>Physiological.</strong> Adjusting blood vessel diameter. Vasodilation brings warm blood to skin surface (lose heat). Vasoconstriction reduces blood flow to extremities (retain heat).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEEDBACK TAB -->
+  <div class="tab-panel" id="thermo-feedback">
+    <div class="interactive-box">
+      <h3>🔄 Thermoregulation Feedback Control Diagram</h3>
+      <p class="subtitle">Two parallel negative feedback loops for heat and cold responses.</p>
+      <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;margin-top:1rem;">
+        <!-- HOT LOOP -->
+        <rect x="10" y="20" width="380" height="280" rx="10" fill="rgba(255,107,53,0.05)" stroke="rgba(255,107,53,0.3)" stroke-width="1.5"/>
+        <text x="200" y="45" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#ff6b35">TOO HOT</text>
+        <!-- boxes -->
+        <rect x="40" y="60" width="140" height="44" rx="6" fill="#1a2535" stroke="#ff6b35" stroke-width="1.5"/>
+        <text x="110" y="78" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="#e8f4fd">Stimulus:</text>
+        <text x="110" y="93" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="#ff6b35">↑ Body Temp</text>
+
+        <rect x="40" y="130" width="140" height="44" rx="6" fill="#1a2535" stroke="#00d4ff" stroke-width="1.5"/>
+        <text x="110" y="148" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="#e8f4fd">Receptor:</text>
+        <text x="110" y="163" text-anchor="middle" font-family="IBM Plex Sans" font-size="10" fill="#00d4ff">Thermoreceptors</text>
+
+        <rect x="40" y="200" width="140" height="44" rx="6" fill="#1a2535" stroke="#a855f7" stroke-width="1.5"/>
+        <text x="110" y="218" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="#e8f4fd">Control Centre:</text>
+        <text x="110" y="233" text-anchor="middle" font-family="IBM Plex Sans" font-size="10" fill="#a855f7">Hypothalamus</text>
+
+        <rect x="210" y="130" width="140" height="44" rx="6" fill="#1a2535" stroke="#7fff7f" stroke-width="1.5"/>
+        <text x="280" y="148" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="#e8f4fd">Effectors:</text>
+        <text x="280" y="163" text-anchor="middle" font-family="IBM Plex Sans" font-size="10" fill="#7fff7f">Sweat + Vasodilation</text>
+
+        <rect x="210" y="200" width="140" height="44" rx="6" fill="#1a2535" stroke="#7fff7f" stroke-width="1.5"/>
+        <text x="280" y="218" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="#e8f4fd">Response:</text>
+        <text x="280" y="233" text-anchor="middle" font-family="IBM Plex Sans" font-size="10" fill="#7fff7f">↓ Body Temp</text>
+
+        <!-- arrows -->
+        <line x1="110" y1="104" x2="110" y2="128" stroke="#7ba3c4" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <line x1="110" y1="174" x2="110" y2="198" stroke="#7ba3c4" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <line x1="180" y1="152" x2="208" y2="152" stroke="#7ba3c4" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <line x1="280" y1="174" x2="280" y2="198" stroke="#7ba3c4" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+        <!-- COLD LOOP -->
+        <rect x="410" y="20" width="380" height="280" rx="10" fill="rgba(110,180,255,0.05)" stroke="rgba(110,180,255,0.3)" stroke-width="1.5"/>
+        <text x="600" y="45" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#6eb4ff">TOO COLD</text>
+
+        <rect x="440" y="60" width="140" height="44" rx="6" fill="#1a2535" stroke="#6eb4ff" stroke-width="1.5"/>
+        <text x="510" y="78" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="#e8f4fd">Stimulus:</text>
+        <text x="510" y="93" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="#6eb4ff">↓ Body Temp</text>
+
+        <rect x="440" y="130" width="140" height="44" rx="6" fill="#1a2535" stroke="#00d4ff" stroke-width="1.5"/>
+        <text x="510" y="148" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="#e8f4fd">Receptor:</text>
+        <text x="510" y="163" text-anchor="middle" font-family="IBM Plex Sans" font-size="10" fill="#00d4ff">Thermoreceptors</text>
+
+        <rect x="440" y="200" width="140" height="44" rx="6" fill="#1a2535" stroke="#a855f7" stroke-width="1.5"/>
+        <text x="510" y="218" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="#e8f4fd">Control Centre:</text>
+        <text x="510" y="233" text-anchor="middle" font-family="IBM Plex Sans" font-size="10" fill="#a855f7">Hypothalamus</text>
+
+        <rect x="610" y="130" width="140" height="44" rx="6" fill="#1a2535" stroke="#ff6b35" stroke-width="1.5"/>
+        <text x="680" y="148" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="#e8f4fd">Effectors:</text>
+        <text x="680" y="163" text-anchor="middle" font-family="IBM Plex Sans" font-size="10" fill="#ff6b35">Shiver + Vasoconstric.</text>
+
+        <rect x="610" y="200" width="140" height="44" rx="6" fill="#1a2535" stroke="#ff6b35" stroke-width="1.5"/>
+        <text x="680" y="218" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="#e8f4fd">Response:</text>
+        <text x="680" y="233" text-anchor="middle" font-family="IBM Plex Sans" font-size="10" fill="#ff6b35">↑ Body Temp</text>
+
+        <line x1="510" y1="104" x2="510" y2="128" stroke="#7ba3c4" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <line x1="510" y1="174" x2="510" y2="198" stroke="#7ba3c4" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <line x1="580" y1="152" x2="608" y2="152" stroke="#7ba3c4" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <line x1="680" y1="174" x2="680" y2="198" stroke="#7ba3c4" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+        <defs>
+          <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#7ba3c4"/>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- 8. OSMOREGULATION -->
+<section class="section bg-alt" id="osmoregulation">
+  <div class="section-header">
+    <div class="section-tag">08 · Osmoregulation</div>
+    <h2 class="section-title">Water Balance & ADH</h2>
+    <p class="section-sub">How the kidneys and ADH maintain blood osmolarity through negative feedback.</p>
+  </div>
+
+  <div class="analogy">
+    <div class="analogy-tag">🚰 Analogy</div>
+    <p><strong>ADH is like a dam controller.</strong> When the body detects the blood is too concentrated (dehydrated), ADH is released — like opening sluice gates in the kidney collecting duct. More water is reabsorbed, urine becomes concentrated, and blood returns to normal osmolarity.</p>
+  </div>
+
+  <div class="interactive-box">
+    <h3>💧 ADH & Kidney Feedback Simulator</h3>
+    <p class="subtitle">Adjust hydration level and watch ADH levels and urine concentration respond.</p>
+    <canvas id="kidney-canvas"></canvas>
+    <div class="sim-controls" style="margin-top:1rem;">
+      <label>Hydration Level:</label>
+      <input type="range" min="0" max="100" value="70" id="kidney-slider" oninput="updateKidney()">
+      <span id="kidney-val" style="color:var(--accent);">70%</span>
+    </div>
+    <div id="kidney-status" style="margin-top:1rem;padding:0.75rem 1rem;background:var(--surface);border-radius:6px;font-family:'IBM Plex Mono',monospace;font-size:0.85rem;color:var(--muted);">
+      Normal hydration. ADH at baseline. Moderate urine output.
+    </div>
+
+    <div style="margin-top:2rem">
+      <h4 style="font-family:'Playfair Display',serif;margin-bottom:1rem;">Key Structures</h4>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon">🧠</div>
+          <h3>Hypothalamus (Osmoreceptors)</h3>
+          <p>Detects changes in blood osmolarity. When blood is too concentrated, signals posterior pituitary.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">💉</div>
+          <h3>ADH (Antidiuretic Hormone)</h3>
+          <p>Released by posterior pituitary. Travels via blood to kidneys. Increases aquaporin channels in collecting duct.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🫘</div>
+          <h3>Kidney (Collecting Duct)</h3>
+          <p>More aquaporins = more water reabsorption = concentrated urine. Low ADH = dilute urine, high urine volume.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- 9. PLANTS -->
+<section class="section" id="plants">
+  <div class="section-header">
+    <div class="section-tag">09 · Plant Water Balance</div>
+    <h2 class="section-title">Water Regulation in Plants</h2>
+    <p class="section-sub">Structural and hormonal mechanisms that maintain water balance in plants across different environments.</p>
+  </div>
+
+  <div class="interactive-box">
+    <h3>🌿 Plant Water Balance Simulation</h3>
+    <p class="subtitle">Adjust soil water availability to see stomatal and hormonal responses.</p>
+    <canvas id="plant-canvas"></canvas>
+    <div class="sim-controls" style="margin-top:1rem;">
+      <label>Soil Water:</label>
+      <input type="range" min="0" max="100" value="70" id="plant-slider" oninput="updatePlant()">
+      <span id="plant-val" style="color:var(--accent3);">70%</span>
+    </div>
+    <div id="plant-status" style="margin-top:1rem;padding:0.75rem 1rem;background:var(--surface);border-radius:6px;font-family:'IBM Plex Mono',monospace;font-size:0.85rem;color:var(--muted);">
+      Good water availability. Stomata open for gas exchange.
+    </div>
+
+    <div style="margin-top:2rem">
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon">🌬️</div>
+          <h3>Stomata</h3>
+          <p>Pores in leaf epidermis. Guard cells control opening/closing. Open: CO₂ in, O₂ out, water vapour out (transpiration). Close under stress.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">💧</div>
+          <h3>Vacuoles</h3>
+          <p>Large central vacuoles store water. Turgor pressure keeps plant cells rigid. When dehydrated, cells lose turgor → wilting.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🛡️</div>
+          <h3>Cuticle</h3>
+          <p>Waxy layer on leaf/stem surfaces. Waterproof barrier reducing water loss by evaporation. Thicker in xerophytes (dry-adapted plants).</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🚨</div>
+          <h3>Abscisic Acid (ABA)</h3>
+          <p>Stress hormone. Released when water is scarce. Signals guard cells to close stomata, reducing further water loss through transpiration.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STOMATA COMPARISON TABLE -->
+  <div class="interactive-box" style="margin-top:2rem;">
+    <h3>📊 Stomata in Different Environments</h3>
+    <p class="subtitle">Interpreting data: stomatal number and distribution vary with habitat.</p>
+    <table class="stomata-table">
+      <thead>
+        <tr>
+          <th>Plant Type / Habitat</th>
+          <th>Stomata Density (per mm²)</th>
+          <th>Location</th>
+          <th>Adaptation Reason</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>🌵 Xerophyte (desert)</td><td style="color:var(--accent3);">50–100 (sunken)</td><td>Abaxial (underside) only</td><td>Minimise water loss in hot, dry conditions</td></tr>
+        <tr><td>🌿 Mesophyte (temperate)</td><td style="color:var(--accent);">100–300</td><td>Mostly abaxial</td><td>Balance CO₂ uptake and water loss</td></tr>
+        <tr><td>🌱 Hydrophyte (aquatic)</td><td style="color:var(--accent2);">300–700</td><td>Adaxial (upper) only</td><td>Stomata on upper surface — only part above water</td></tr>
+        <tr><td>🌲 Conifer</td><td>40–80 (deeply sunken)</td><td>Both surfaces, sunken in grooves</td><td>Reduce water loss in cold/dry winters</td></tr>
+        <tr><td>🌾 Grass (C4, tropical)</td><td>100–150</td><td>Both surfaces, dumbbell-shaped guard cells</td><td>Efficient opening/closing in high-light environments</td></tr>
+      </tbody>
+    </table>
+    <p style="color:var(--muted);font-size:0.85rem;margin-top:0.75rem;">📌 Exam tip: Sunken stomata, thick cuticle, and reduced leaf area are all xerophytic adaptations reducing transpiration.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- 10. QUIZ -->
+<section class="section bg-alt" id="quiz">
+  <div class="section-header">
+    <div class="section-tag">10 · Self-Assessment</div>
+    <h2 class="section-title">Test Your Knowledge</h2>
+    <p class="section-sub">Check your understanding of Unit 2 homeostasis concepts.</p>
+  </div>
+
+  <div id="quiz-container"></div>
+  <div style="margin-top:1.5rem;display:flex;gap:1rem;flex-wrap:wrap;">
+    <button class="btn btn-primary" onclick="checkQuiz()">✅ Check Answers</button>
+    <button class="btn btn-ghost" onclick="resetQuiz()">🔄 New Quiz</button>
+  </div>
+  <div id="quiz-score" style="margin-top:1rem;display:none;padding:1rem 1.5rem;border-radius:8px;font-family:'IBM Plex Mono',monospace;font-size:1rem;"></div>
+</section>
+
+<hr class="divider">
+
+<!-- KEY TERMS -->
+<section class="section" id="keyterms">
+  <div class="section-header">
+    <div class="section-tag">Glossary</div>
+    <h2 class="section-title">Key Terms</h2>
+  </div>
+  <div class="term-grid">
+    <div class="term-item"><div class="term">Homeostasis</div><div class="def">Maintenance of stable internal conditions within tolerance limits.</div></div>
+    <div class="term-item"><div class="term">Negative Feedback</div><div class="def">Control mechanism where the response opposes the original stimulus.</div></div>
+    <div class="term-item"><div class="term">Positive Feedback</div><div class="def">Control mechanism where the response amplifies the original stimulus, pushing toward a definite endpoint.</div></div>
+    <div class="term-item"><div class="term">Coagulation Cascade</div><div class="def">Positive feedback process where clotting factors amplify each other, resulting in a blood clot.</div></div>
+    <div class="term-item"><div class="term">Oxytocin</div><div class="def">Hormone driving uterine contractions in childbirth via positive feedback; also involved in bonding.</div></div>
+    <div class="term-item"><div class="term">Neurotransmitter</div><div class="def">Chemical messenger released across a synapse (e.g. acetylcholine, dopamine).</div></div>
+    <div class="term-item"><div class="term">Action Potential</div><div class="def">Electrical impulse generated when membrane potential reaches threshold (~−55mV).</div></div>
+    <div class="term-item"><div class="term">Myelin Sheath</div><div class="def">Fatty insulating layer speeding signal conduction via saltatory conduction.</div></div>
+    <div class="term-item"><div class="term">Synapse</div><div class="def">Junction between two neurons where signal is transmitted chemically.</div></div>
+    <div class="term-item"><div class="term">Hormone</div><div class="def">Chemical messenger produced by endocrine gland, transported via blood.</div></div>
+    <div class="term-item"><div class="term">ADH</div><div class="def">Antidiuretic hormone; increases water reabsorption in kidney collecting duct.</div></div>
+    <div class="term-item"><div class="term">Vasodilation</div><div class="def">Widening of blood vessels; increases blood flow to skin surface, losing heat.</div></div>
+    <div class="term-item"><div class="term">Vasoconstriction</div><div class="def">Narrowing of blood vessels; reduces blood flow to extremities, conserving heat.</div></div>
+    <div class="term-item"><div class="term">Thermogenesis</div><div class="def">Heat production by the body (shivering or non-shivering via brown adipose tissue).</div></div>
+    <div class="term-item"><div class="term">Abscisic Acid (ABA)</div><div class="def">Plant stress hormone triggering stomatal closure during water deficit.</div></div>
+    <div class="term-item"><div class="term">Osmoregulation</div><div class="def">Regulation of water and solute balance in body fluids.</div></div>
+    <div class="term-item"><div class="term">Transpiration</div><div class="def">Loss of water vapour from plant surfaces, mainly through stomata.</div></div>
+    <div class="term-item"><div class="term">Signal Transduction</div><div class="def">The cascade of molecular events following receptor binding that alters cell activity.</div></div>
+    <div class="term-item"><div class="term">Nociceptor</div><div class="def">Pain receptor detecting potentially damaging stimuli.</div></div>
+  </div>
+</section>
+
+<footer>
+  QLD Senior Biology · Unit 2 Topic 1: Homeostasis · Aligned to Biology 2025 v1.3 Syllabus<br>
+  Interactive educational resource · All diagrams and simulations are illustrative
+</footer>
+
+<script>
+// ===== FEEDBACK LOOP =====
+const fbData = {
+  stim: {
+    title: "Stimulus",
+    desc: "A change in the internal or external environment that disrupts the set point. Examples: rising body temperature, falling blood glucose, loss of body water.",
+    hot: {val:"↑ Body Temp", title:"Stimulus: Rising Temperature", desc:"Core body temperature rises above 37°C set point. Detected by thermoreceptors in the skin and hypothalamus."},
+    cold: {val:"↓ Body Temp", title:"Stimulus: Falling Temperature", desc:"Core body temperature falls below 37°C. Thermoreceptors in skin send signals to hypothalamus."},
+    blood: {val:"↑ Blood Glucose", title:"Stimulus: High Blood Glucose", desc:"Blood glucose rises above ~5 mmol/L after a meal. Detected by β cells in the islets of Langerhans in the pancreas."}
+  },
+  rec: {
+    title: "Receptor",
+    desc: "Detects the stimulus. Receptors are specialised cells that monitor specific variables. They generate nerve signals or hormonal signals sent to the control centre.",
+    hot:{val:"Thermoreceptors"},cold:{val:"Thermoreceptors"},blood:{val:"β cells (Pancreas)"}
+  },
+  cc: {
+    title: "Control Centre",
+    desc: "Receives and processes information from receptors. Compares the current value to the set point and determines the appropriate response. In the nervous system this is usually the brain (e.g. hypothalamus).",
+    hot:{val:"Hypothalamus"},cold:{val:"Hypothalamus"},blood:{val:"Pancreas"}
+  },
+  eff: {
+    title: "Effector",
+    desc: "Carries out the response — could be a muscle or a gland. Multiple effectors often work together to restore the set point.",
+    hot:{val:"Sweat + Vasodilation"},cold:{val:"Shivering + Vasoconstriction"},blood:{val:"Insulin → Liver/Muscle"}
+  },
+  resp: {
+    title: "Response",
+    desc: "The corrective action that opposes the original stimulus. Because it counters the change, this is called negative feedback. The response reduces the stimulus, completing the loop.",
+    hot:{val:"↓ Body Temp"},cold:{val:"↑ Body Temp"},blood:{val:"↓ Blood Glucose"}
+  }
+};
+let fbMode = 'hot';
+function fbClick(key) {
+  document.querySelectorAll('.fb-node').forEach(n=>n.classList.remove('active'));
+  document.getElementById('fb-'+key).classList.add('active');
+  const d = fbData[key];
+  document.getElementById('fb-desc').innerHTML = `<strong style="color:var(--accent)">${d.title}</strong><br><span style="color:var(--muted)">${d.desc}</span>`;
+}
+function fbSimulate(mode) {
+  fbMode = mode;
+  const labels = {
+    hot:['↑ Body Temp','Thermoreceptors','Hypothalamus','Sweat glands','↓ Body Temp'],
+    cold:['↓ Body Temp','Thermoreceptors','Hypothalamus','Shiver + Vasoconstrict','↑ Body Temp'],
+    blood:['↑ Blood Glucose','β cells (Pancreas)','Pancreas','Insulin → Cells','↓ Blood Glucose']
+  };
+  const keys = ['stim','rec','cc','eff','resp'];
+  keys.forEach((k,i)=>{
+    document.getElementById('fb-'+k+'-v') && (document.getElementById('fb-'+k+'-v').textContent = labels[mode][i]);
+  });
+  document.querySelectorAll('.fb-val').forEach((el,i)=>{
+    if(i<5) el.textContent = labels[mode][i];
+  });
+  var simLabel = mode==='hot' ? 'Heat Stress' : mode==='cold' ? 'Cold Stress' : 'High Blood Glucose';
+  document.getElementById('fb-desc').innerHTML = '<strong style="color:var(--accent2)">Simulating: ' + simLabel + '</strong><br><span style="color:var(--muted)">Click each component to explore this specific scenario.</span>';
+}
+
+// ===== RECEPTOR TYPES =====
+const receptorData = {
+  chemo: { name:'Chemoreceptor', example:'📍 Examples: taste buds (tongue), olfactory receptors (nose), carotid body (CO₂ in blood), pH receptors in medulla oblongata.', body:'Detect changes in chemical concentrations — including O₂, CO₂, pH, glucose, and odorants. They convert chemical binding events into electrical nerve signals. Crucial for regulating breathing rate in response to blood CO₂ levels.' },
+  thermo: { name:'Thermoreceptor', example:'📍 Examples: cold receptors (Krause bulbs), warm receptors (Ruffini endings) in skin; hypothalamic thermoreceptors monitoring blood temperature.', body:'Respond to changes in temperature. Two types: warm receptors (fire faster when temp increases) and cold receptors (fire faster when temp drops). The hypothalamus contains central thermoreceptors monitoring blood temperature directly.' },
+  mechano: { name:'Mechanoreceptor', example:'📍 Examples: Meissner\'s corpuscles (light touch), Pacinian corpuscles (pressure/vibration), hair cells in cochlea (sound), baroreceptors in blood vessels.', body:'Convert mechanical deformation into electrical signals. Respond to pressure, touch, vibration, stretch, and sound. Hair cells in the ear are specialised mechanoreceptors that detect sound wave vibrations.' },
+  photo: { name:'Photoreceptor', example:'📍 Examples: Rods (low-light, black/white vision) and Cones (colour vision, high acuity) in the retina of the eye.', body:'Respond to light energy. Found in the retina. Contain light-sensitive pigments (rhodopsin in rods, opsin variants in cones). When photons strike the pigment, a conformational change triggers a nerve signal — signal transduction at its finest.' },
+  noci: { name:'Nociceptor', example:'📍 Examples: Free nerve endings in skin, joints, muscles. Activated by intense pressure, extreme temperatures, chemical irritants (H⁺, bradykinin, substance P).', body:'Detect actual or potential tissue damage — the biological basis of pain. Unlike other receptors that adapt (stop firing), nociceptors often sensitise — they become more responsive over time (hyperalgesia), which is why inflammation makes areas more sensitive.' }
+};
+function selectReceptor(type) {
+  document.querySelectorAll('.receptor-card').forEach(c=>c.classList.remove('selected'));
+  event.currentTarget.classList.add('selected');
+  const d = receptorData[type];
+  document.getElementById('receptor-detail').style.display='block';
+  document.getElementById('rd-title').textContent = d.name;
+  document.getElementById('rd-body').textContent = d.body;
+  document.getElementById('rd-example').textContent = d.example;
+}
+
+// ===== NEURON PARTS =====
+const neuronData = {
+  dendrites: { title:'Dendrites', desc:'Branched projections that receive signals from other neurons or sensory receptors. The more dendrites, the more connections a neuron can receive. They funnel signals toward the soma.' },
+  soma: { title:'Cell Body (Soma)', desc:'Contains the nucleus and controls cell metabolism. Integrates all incoming signals from dendrites. If the net signal reaches threshold, an action potential is triggered at the axon hillock.' },
+  axon: { title:'Axon', desc:'A single long fibre that carries the action potential away from the cell body toward the axon terminal. Can be over a metre long in spinal motor neurons! The myelin sheath dramatically increases conduction speed.' },
+  myelin: { title:'Myelin Sheath', desc:'A fatty insulating layer wrapped around the axon by Schwann cells (PNS) or oligodendrocytes (CNS). Allows saltatory conduction — the signal jumps between nodes rather than travelling the whole length, making it ~100× faster.' },
+  nodes: { title:'Nodes of Ranvier', desc:'Gaps in the myelin sheath where the axon membrane is exposed. Action potentials are regenerated at each node, causing the impulse to "leap" between nodes — this is saltatory conduction. Greatly increases signal velocity.' },
+  terminal: { title:'Axon Terminal (Synaptic Knobs)', desc:'The end of the axon that forms synapses with the next neuron or effector cell. Contains vesicles packed with neurotransmitters, ready for release when an action potential arrives.' }
+};
+function showNeuronPart(part) {
+  const d = neuronData[part];
+  document.getElementById('ni-title').textContent = d.title;
+  document.getElementById('ni-desc').textContent = d.desc;
+  document.getElementById('ni-desc').style.color = 'var(--text)';
+}
+
+// ===== ACTION POTENTIAL CANVAS =====
+const apCanvas = document.getElementById('ap-canvas');
+const apCtx = apCanvas.getContext('2d');
+let apAnimFrame = null;
+let apFired = false;
+let apT = 0;
+function resizeAP() {
+  apCanvas.width = apCanvas.offsetWidth * window.devicePixelRatio;
+  apCanvas.height = apCanvas.offsetHeight * window.devicePixelRatio;
+  apCtx.scale(window.devicePixelRatio, window.devicePixelRatio);
+  drawAP();
+}
+function drawAP() {
+  const W = apCanvas.offsetWidth, H = apCanvas.offsetHeight;
+  apCtx.clearRect(0,0,W,H);
+  apCtx.fillStyle='#060b11'; apCtx.fillRect(0,0,W,H);
+  // axes
+  apCtx.strokeStyle='rgba(123,163,196,0.3)'; apCtx.lineWidth=1;
+  apCtx.beginPath(); apCtx.moveTo(60,10); apCtx.lineTo(60,H-30); apCtx.stroke();
+  apCtx.beginPath(); apCtx.moveTo(60,H/2); apCtx.lineTo(W-10,H/2); apCtx.stroke();
+  // labels
+  apCtx.fillStyle='#7ba3c4'; apCtx.font=`10px IBM Plex Mono`;
+  apCtx.fillText('+30mV', 2, 20);
+  apCtx.fillText('-70mV', 2, H-35);
+  apCtx.fillText('-55mV (threshold)', 2, H/2-2);
+  // threshold line
+  apCtx.strokeStyle='rgba(255,107,53,0.4)'; apCtx.setLineDash([4,4]);
+  apCtx.beginPath(); apCtx.moveTo(60,H/2); apCtx.lineTo(W-10,H/2); apCtx.stroke();
+  apCtx.setLineDash([]);
+  // resting potential
+  const restY = H-30;
+  if (!apFired) {
+    apCtx.strokeStyle='#00d4ff'; apCtx.lineWidth=2;
+    apCtx.beginPath(); apCtx.moveTo(60,restY); apCtx.lineTo(W-10,restY); apCtx.stroke();
+    apCtx.fillStyle='#00d4ff'; apCtx.font='11px IBM Plex Mono';
+    apCtx.fillText('Resting (-70mV)', 70, restY-5);
+  } else {
+    const pw = W-70, ph = H-40;
+    const pts = [];
+    const dur = Math.min(apT/100, 1);
+    const numPts = Math.floor(dur*200)+1;
+    for(let i=0;i<numPts;i++){
+      const t = i/200;
+      const x = 60 + t*pw;
+      let v;
+      if(t<0.05) v = -70 + t/0.05 * 10; // approach
+      else if(t<0.15) v = -60 + (t-0.05)/0.1 * 90; // rapid depol
+      else if(t<0.25) v = 30 - (t-0.15)/0.1 * 100; // repol
+      else if(t<0.35) v = -70 - (t-0.25)/0.1 * 10; // hyperpol
+      else v = -80 + (t-0.35)/0.65 * 10; // return to rest
+      const y = restY - (v+70)/100 * ph;
+      pts.push({x,y});
+    }
+    if(pts.length>1){
+      apCtx.strokeStyle='#00d4ff'; apCtx.lineWidth=2.5;
+      apCtx.beginPath(); apCtx.moveTo(pts[0].x, pts[0].y);
+      pts.forEach(p=>apCtx.lineTo(p.x,p.y));
+      apCtx.stroke();
+      // glow
+      apCtx.shadowBlur=8; apCtx.shadowColor='#00d4ff';
+      apCtx.stroke();
+      apCtx.shadowBlur=0;
+    }
+    // phase labels
+    if(dur>0.1){ apCtx.fillStyle='rgba(255,107,53,0.8)'; apCtx.font='10px IBM Plex Mono'; apCtx.fillText('Depolarisation',90,25); }
+    if(dur>0.2){ apCtx.fillStyle='rgba(127,255,127,0.8)'; apCtx.fillText('Repolarisation',160,60); }
+    if(dur>0.3){ apCtx.fillStyle='rgba(168,85,247,0.8)'; apCtx.fillText('Hyperpolarisation',230,restY+8); }
+    if(dur>0.5){ apCtx.fillStyle='rgba(0,212,255,0.8)'; apCtx.fillText('Refractory period / Return to rest',300,restY-5); }
+  }
+  if(apFired && apT<105) { apT+=2; apAnimFrame = requestAnimationFrame(drawAP); }
+}
+function updateAP() {
+  const v = document.getElementById('ap-slider').value;
+  document.getElementById('ap-val').textContent = v+'%';
+  const s = document.getElementById('ap-status');
+  if(v<55) { s.textContent='Below threshold: graded potential only — no action potential fires.'; s.style.color='var(--muted)'; }
+  else { s.textContent='Above threshold! Ready to fire action potential. Click "Fire Impulse".'; s.style.color='var(--accent3)'; }
+}
+function fireAP() {
+  const v = +document.getElementById('ap-slider').value;
+  if(v<55) {
+    document.getElementById('ap-status').textContent='⚠️ Stimulus too weak! Below threshold (~55%). Increase the strength.';
+    document.getElementById('ap-status').style.color='var(--danger)';
+    return;
+  }
+  cancelAnimationFrame(apAnimFrame);
+  apFired=true; apT=0;
+  document.getElementById('ap-status').textContent='🔥 Action potential firing! Watch depolarisation → repolarisation → refractory period.';
+  document.getElementById('ap-status').style.color='var(--accent2)';
+  drawAP();
+}
+function resetAP() {
+  cancelAnimationFrame(apAnimFrame);
+  apFired=false; apT=0;
+  document.getElementById('ap-slider').value=0;
+  document.getElementById('ap-val').textContent='0%';
+  document.getElementById('ap-status').textContent='Set stimulus above threshold (~55%) then click Fire Impulse.';
+  document.getElementById('ap-status').style.color='var(--muted)';
+  drawAP();
+}
+
+// ===== SYNAPSE CANVAS =====
+const synCtx = document.getElementById('synapse-canvas').getContext('2d');
+let synAnimFrame = null;
+let synParticles = [];
+let synState = 'idle'; // idle, firing, bound
+let synT = 0;
+function resizeSyn() {
+  const c = document.getElementById('synapse-canvas');
+  c.width = c.offsetWidth * window.devicePixelRatio;
+  c.height = c.offsetHeight * window.devicePixelRatio;
+  synCtx.scale(window.devicePixelRatio, window.devicePixelRatio);
+  drawSynapse();
+}
+function drawSynapse() {
+  const c = document.getElementById('synapse-canvas');
+  const W=c.offsetWidth, H=c.offsetHeight;
+  synCtx.clearRect(0,0,W,H);
+  synCtx.fillStyle='#060b11'; synCtx.fillRect(0,0,W,H);
+  // Presynaptic terminal
+  synCtx.fillStyle='rgba(0,212,255,0.15)'; synCtx.strokeStyle='#00d4ff'; synCtx.lineWidth=2;
+  synCtx.beginPath(); synCtx.roundRect(W*0.05, H*0.05, W*0.38, H*0.5, 12); synCtx.fill(); synCtx.stroke();
+  synCtx.fillStyle='#7ba3c4'; synCtx.font=`11px IBM Plex Mono`;
+  synCtx.fillText('PRESYNAPTIC TERMINAL', W*0.08, H*0.12);
+  // Vesicles (static)
+  const vesPositions = [{x:0.15,y:0.25},{x:0.25,y:0.3},{x:0.35,y:0.22},{x:0.2,y:0.38},{x:0.32,y:0.4}];
+  vesPositions.forEach(p=>{
+    synCtx.fillStyle='rgba(168,85,247,0.6)'; synCtx.strokeStyle='#a855f7'; synCtx.lineWidth=1.5;
+    synCtx.beginPath(); synCtx.arc(W*p.x, H*p.y, 12, 0, Math.PI*2); synCtx.fill(); synCtx.stroke();
+    synCtx.fillStyle='#fff'; synCtx.font='8px IBM Plex Mono'; synCtx.textAlign='center';
+    synCtx.fillText('NT',W*p.x,H*p.y+3); synCtx.textAlign='left';
+  });
+  // Synaptic cleft
+  synCtx.fillStyle='rgba(255,215,0,0.05)'; synCtx.strokeStyle='rgba(255,215,0,0.3)'; synCtx.lineWidth=1;
+  synCtx.beginPath(); synCtx.roundRect(W*0.43, H*0.05, W*0.14, H*0.85, 4); synCtx.fill(); synCtx.stroke();
+  synCtx.fillStyle='#ffd700'; synCtx.font='9px IBM Plex Mono'; synCtx.textAlign='center';
+  synCtx.fillText('SYNAPTIC', W*0.5, H*0.45);
+  synCtx.fillText('CLEFT', W*0.5, H*0.56);
+  synCtx.textAlign='left';
+  // Postsynaptic membrane
+  synCtx.fillStyle='rgba(127,255,127,0.12)'; synCtx.strokeStyle='#7fff7f'; synCtx.lineWidth=2;
+  synCtx.beginPath(); synCtx.roundRect(W*0.57, H*0.05, W*0.38, H*0.85, 12); synCtx.fill(); synCtx.stroke();
+  synCtx.fillStyle='#7fff7f'; synCtx.font='11px IBM Plex Mono';
+  synCtx.fillText('POSTSYNAPTIC', W*0.59, H*0.12);
+  synCtx.fillText('MEMBRANE', W*0.61, H*0.2);
+  // Receptors
+  const recPositions = [{x:0.57,y:0.35},{x:0.57,y:0.55},{x:0.57,y:0.75}];
+  recPositions.forEach(p=>{
+    synCtx.fillStyle='rgba(127,255,127,0.3)'; synCtx.strokeStyle='#7fff7f'; synCtx.lineWidth=1.5;
+    synCtx.beginPath(); synCtx.arc(W*p.x, H*p.y, 10, 0, Math.PI*2); synCtx.fill(); synCtx.stroke();
+    synCtx.fillStyle='#fff'; synCtx.font='7px IBM Plex Mono'; synCtx.textAlign='center';
+    synCtx.fillText('R', W*p.x, H*p.y+2.5); synCtx.textAlign='left';
+  });
+  // Flying neurotransmitter particles
+  synParticles.forEach(p=>{
+    const alpha = p.bound ? 0.3 : 1;
+    synCtx.fillStyle=`rgba(255,107,53,${alpha})`; synCtx.strokeStyle=`rgba(255,150,80,${alpha})`; synCtx.lineWidth=1;
+    synCtx.beginPath(); synCtx.arc(p.x*W, p.y*H, 7, 0, Math.PI*2); synCtx.fill(); synCtx.stroke();
+    synCtx.fillStyle=`rgba(255,255,255,${alpha})`; synCtx.font='6px IBM Plex Mono'; synCtx.textAlign='center';
+    synCtx.fillText('NT', p.x*W, p.y*H+2); synCtx.textAlign='left';
+  });
+  // Phase label
+  if(synState!=='idle'){
+    const labels={firing:'Action potential arriving → vesicles fusing → NT release',bound:'Neurotransmitters bound to receptors → signal transduction!'};
+    synCtx.fillStyle='rgba(0,212,255,0.9)'; synCtx.font='11px IBM Plex Mono'; synCtx.textAlign='center';
+    synCtx.fillText(labels[synState]||'', W/2, H*0.97); synCtx.textAlign='left';
+  }
+}
+function animateSynapse() {
+  synT++;
+  synParticles.forEach(p=>{
+    if(!p.bound){
+      p.x += p.vx;
+      p.y += p.vy;
+      if(p.x>0.56){ p.bound=true; }
+    }
+  });
+  if(synT>40 && synParticles.every(p=>p.bound)) { synState='bound'; document.getElementById('synapse-status').textContent='✅ Neurotransmitters bound! Receptors activated → signal transduction in postsynaptic cell.'; document.getElementById('synapse-status').style.color='var(--accent3)'; }
+  drawSynapse();
+  if(synState==='firing') synAnimFrame = requestAnimationFrame(animateSynapse);
+}
+function transmitSynapse() {
+  cancelAnimationFrame(synAnimFrame);
+  synState='firing'; synT=0;
+  const c = document.getElementById('synapse-canvas');
+  const W=c.offsetWidth;
+  synParticles = [
+    {x:0.38,y:0.3,vx:0.005,vy:0.001,bound:false},
+    {x:0.38,y:0.45,vx:0.005,vy:0.002,bound:false},
+    {x:0.38,y:0.6,vx:0.005,vy:-0.001,bound:false},
+    {x:0.35,y:0.35,vx:0.006,vy:0.003,bound:false},
+    {x:0.36,y:0.55,vx:0.006,vy:-0.002,bound:false},
+  ];
+  document.getElementById('synapse-status').textContent='⚡ Transmitting... vesicles releasing neurotransmitters into synaptic cleft.';
+  document.getElementById('synapse-status').style.color='var(--accent2)';
+  animateSynapse();
+}
+function resetSynapse() {
+  cancelAnimationFrame(synAnimFrame);
+  synState='idle'; synParticles=[];
+  document.getElementById('synapse-status').textContent='Ready. Click "Transmit Signal" to begin.';
+  document.getElementById('synapse-status').style.color='var(--muted)';
+  drawSynapse();
+}
+
+// ===== HORMONE CANVAS =====
+const horCtx = document.getElementById('hormone-canvas').getContext('2d');
+let horParticles = []; let horAnimFrame=null; let horRunning=false;
+function resizeHor(){
+  const c=document.getElementById('hormone-canvas');
+  c.width=c.offsetWidth*window.devicePixelRatio; c.height=c.offsetHeight*window.devicePixelRatio;
+  horCtx.scale(window.devicePixelRatio, window.devicePixelRatio); drawHormone();
+}
+const horCells = [{x:0.25,y:0.3,hasR:true},{x:0.5,y:0.25,hasR:false},{x:0.7,y:0.35,hasR:true},{x:0.35,y:0.65,hasR:false},{x:0.65,y:0.7,hasR:true},{x:0.82,y:0.55,hasR:false}];
+function drawHormone(){
+  const c=document.getElementById('hormone-canvas');
+  const W=c.offsetWidth,H=c.offsetHeight;
+  horCtx.clearRect(0,0,W,H);
+  horCtx.fillStyle='#060b11'; horCtx.fillRect(0,0,W,H);
+  // Endocrine gland
+  horCtx.fillStyle='rgba(255,107,53,0.2)'; horCtx.strokeStyle='#ff6b35'; horCtx.lineWidth=2;
+  horCtx.beginPath(); horCtx.arc(W*0.08,H*0.5,30,0,Math.PI*2); horCtx.fill(); horCtx.stroke();
+  horCtx.fillStyle='#ff6b35'; horCtx.font='9px IBM Plex Mono'; horCtx.textAlign='center';
+  horCtx.fillText('GLAND',W*0.08,H*0.46); horCtx.fillText('(e.g.',W*0.08,H*0.54); horCtx.fillText('thyroid)',W*0.08,H*0.62); horCtx.textAlign='left';
+  // Cells
+  horCells.forEach(cell=>{
+    const col = cell.hasR ? 'rgba(127,255,127,0.3)' : 'rgba(123,163,196,0.2)';
+    const stroke = cell.hasR ? '#7fff7f' : '#7ba3c4';
+    horCtx.fillStyle=col; horCtx.strokeStyle=stroke; horCtx.lineWidth=1.5;
+    horCtx.beginPath(); horCtx.arc(W*cell.x,H*cell.y,22,0,Math.PI*2); horCtx.fill(); horCtx.stroke();
+    horCtx.fillStyle=stroke; horCtx.font='8px IBM Plex Mono'; horCtx.textAlign='center';
+    horCtx.fillText(cell.hasR?'TARGET':'NON-',W*cell.x,H*cell.y-(cell.hasR?5:2));
+    if(!cell.hasR) horCtx.fillText('TARGET',W*cell.x,H*cell.y+7);
+    horCtx.textAlign='left';
+  });
+  // Hormone particles
+  horParticles.forEach(p=>{
+    if(p.bound){
+      horCtx.fillStyle='rgba(255,215,0,0.5)'; horCtx.beginPath(); horCtx.arc(p.x*W,p.y*H,5,0,Math.PI*2); horCtx.fill();
+    } else {
+      horCtx.fillStyle='rgba(255,215,0,0.9)'; horCtx.strokeStyle='#ffd700'; horCtx.lineWidth=1;
+      horCtx.beginPath(); horCtx.arc(p.x*W,p.y*H,5,0,Math.PI*2); horCtx.fill(); horCtx.stroke();
+    }
+  });
+  horCtx.fillStyle='rgba(123,163,196,0.6)'; horCtx.font='10px IBM Plex Mono'; horCtx.textAlign='center';
+  horCtx.fillText('🟡 = hormone molecule   🟢 = target cell (has receptors)   🔵 = non-target cell',W/2,H*0.96); horCtx.textAlign='left';
+}
+function animateHormone(){
+  horParticles.forEach(p=>{
+    if(!p.bound){
+      p.x += p.vx + (Math.random()-0.5)*0.003;
+      p.y += p.vy + (Math.random()-0.5)*0.003;
+      if(p.x<0.1||p.x>0.95) p.vx*=-1;
+      if(p.y<0.05||p.y>0.95) p.vy*=-1;
+      // check near target cell
+      horCells.forEach(cell=>{
+        if(cell.hasR){
+          const dist=Math.sqrt((p.x-cell.x)**2+(p.y-cell.y)**2);
+          if(dist<0.07) { p.bound=true; p.x=cell.x+Math.random()*0.05-0.025; p.y=cell.y+Math.random()*0.05-0.025; }
+        }
+      });
+    }
+  });
+  drawHormone();
+  if(horRunning) horAnimFrame=requestAnimationFrame(animateHormone);
+}
+function releaseHormone(){
+  cancelAnimationFrame(horAnimFrame);
+  horRunning=true; horParticles=[];
+  for(let i=0;i<12;i++){
+    horParticles.push({x:0.08+Math.random()*0.03,y:0.5+Math.random()*0.05,vx:(Math.random()*0.012+0.004),vy:(Math.random()-0.5)*0.008,bound:false});
+  }
+  animateHormone();
+}
+function resetHormone(){ cancelAnimationFrame(horAnimFrame); horRunning=false; horParticles=[]; drawHormone(); }
+
+// ===== THERMOREGULATION =====
+function updateThermo(){
+  const env = +document.getElementById('thermo-slider').value;
+  document.getElementById('thermo-env-val').textContent = env+'°C';
+  let bodyTemp = 37.0;
+  let status='';
+  const hot = env>28; const cold = env<20;
+  // approximate body temp change
+  if(env>40) bodyTemp=38.2; else if(env>35) bodyTemp=37.4;
+  else if(env<0) bodyTemp=36.2; else if(env<10) bodyTemp=36.5;
+  const td = document.getElementById('thermo-temp-display');
+  td.textContent = bodyTemp.toFixed(1)+'°C';
+  td.style.color = hot ? '#ff6b35' : cold ? '#6eb4ff' : '#00d4ff';
+  ['tc-sweat','tc-vasodilate'].forEach(id=>{
+    const el=document.getElementById(id);
+    el.classList.toggle('active-hot', hot); el.classList.remove('active-cold');
+  });
+  ['tc-shiver','tc-vasoconstrict'].forEach(id=>{
+    const el=document.getElementById(id);
+    el.classList.toggle('active-cold', cold); el.classList.remove('active-hot');
+  });
+  if(hot) status='🌡️ HOT: Sweating + vasodilation → heat loss via evaporation and radiation';
+  else if(cold) status='❄️ COLD: Shivering + vasoconstriction → heat production and retention';
+  else status='✅ Normal temperature range — minimal thermoregulatory effort needed';
+  document.getElementById('thermo-status').textContent=status;
+}
+
+// ===== KIDNEY/ADH CANVAS =====
+const kidCtx = document.getElementById('kidney-canvas').getContext('2d');
+function resizeKidney(){
+  const c=document.getElementById('kidney-canvas');
+  c.width=c.offsetWidth*window.devicePixelRatio; c.height=c.offsetHeight*window.devicePixelRatio;
+  kidCtx.scale(window.devicePixelRatio, window.devicePixelRatio); drawKidney();
+}
+function drawKidney(){
+  const c=document.getElementById('kidney-canvas');
+  const W=c.offsetWidth, H=c.offsetHeight;
+  const hyd=+document.getElementById('kidney-slider').value;
+  kidCtx.clearRect(0,0,W,H); kidCtx.fillStyle='#060b11'; kidCtx.fillRect(0,0,W,H);
+  // Blood osmolarity bar
+  const osm = 280 + (100-hyd)*1.2;
+  const osmPct = (osm-280)/120;
+  kidCtx.fillStyle='rgba(123,163,196,0.2)'; kidCtx.fillRect(W*0.05,H*0.06,W*0.25,20);
+  kidCtx.fillStyle= osmPct>0.5?'#ff6b35':'#00d4ff'; kidCtx.fillRect(W*0.05,H*0.06,W*0.25*Math.min(osmPct*1.5+0.3,1),20);
+  kidCtx.strokeStyle='#7ba3c4'; kidCtx.lineWidth=1; kidCtx.strokeRect(W*0.05,H*0.06,W*0.25,20);
+  kidCtx.fillStyle='#7ba3c4'; kidCtx.font='10px IBM Plex Mono';
+  kidCtx.fillText(`Blood Osmolarity: ${Math.round(osm)} mOsm/kg`,W*0.05,H*0.06-4);
+  // ADH level bar
+  const adh = Math.max(0, 100-hyd);
+  kidCtx.fillStyle='rgba(168,85,247,0.2)'; kidCtx.fillRect(W*0.37,H*0.06,W*0.25,20);
+  kidCtx.fillStyle='#a855f7'; kidCtx.fillRect(W*0.37,H*0.06,W*0.25*(adh/100),20);
+  kidCtx.strokeStyle='#a855f7'; kidCtx.strokeRect(W*0.37,H*0.06,W*0.25,20);
+  kidCtx.fillStyle='#a855f7'; kidCtx.fillText(`ADH Level: ${Math.round(adh)}%`,W*0.37,H*0.06-4);
+  // Urine concentration
+  const urine = Math.round(adh*8+100);
+  kidCtx.fillStyle='rgba(255,215,0,0.2)'; kidCtx.fillRect(W*0.69,H*0.06,W*0.25,20);
+  const urineColor = urine>500?'#ffd700':urine>300?'#c8a800':'#a0c8ff';
+  kidCtx.fillStyle=urineColor; kidCtx.fillRect(W*0.69,H*0.06,W*0.25*Math.min(urine/900,1),20);
+  kidCtx.strokeStyle='#ffd700'; kidCtx.strokeRect(W*0.69,H*0.06,W*0.25,20);
+  kidCtx.fillStyle='#ffd700'; kidCtx.fillText(`Urine Conc: ${urine} mOsm/kg`,W*0.69,H*0.06-4);
+
+  // Diagram
+  // Hypothalamus
+  kidCtx.fillStyle='rgba(0,212,255,0.15)'; kidCtx.strokeStyle='#00d4ff'; kidCtx.lineWidth=2;
+  kidCtx.beginPath(); kidCtx.roundRect(W*0.05,H*0.28,W*0.2,H*0.18,8); kidCtx.fill(); kidCtx.stroke();
+  kidCtx.fillStyle='#00d4ff'; kidCtx.font='11px IBM Plex Mono'; kidCtx.textAlign='center';
+  kidCtx.fillText('HYPOTHALAMUS',W*0.15,H*0.36);
+  kidCtx.fillStyle='#7ba3c4'; kidCtx.font='9px IBM Plex Mono';
+  kidCtx.fillText('Osmoreceptors',W*0.15,H*0.43);
+  // Pituitary
+  kidCtx.fillStyle='rgba(168,85,247,0.15)'; kidCtx.strokeStyle='#a855f7'; kidCtx.lineWidth=2;
+  kidCtx.beginPath(); kidCtx.roundRect(W*0.38,H*0.28,W*0.2,H*0.18,8); kidCtx.fill(); kidCtx.stroke();
+  kidCtx.fillStyle='#a855f7'; kidCtx.font='11px IBM Plex Mono';
+  kidCtx.fillText('PITUITARY',W*0.48,H*0.35);
+  kidCtx.font='9px IBM Plex Mono'; kidCtx.fillStyle='#7ba3c4';
+  kidCtx.fillText(`ADH: ${adh>60?'HIGH ↑':adh>30?'MED':'LOW ↓'}`,W*0.48,H*0.43);
+  // Kidney
+  kidCtx.fillStyle='rgba(127,255,127,0.15)'; kidCtx.strokeStyle='#7fff7f'; kidCtx.lineWidth=2;
+  kidCtx.beginPath(); kidCtx.roundRect(W*0.71,H*0.28,W*0.22,H*0.18,8); kidCtx.fill(); kidCtx.stroke();
+  kidCtx.fillStyle='#7fff7f'; kidCtx.font='11px IBM Plex Mono';
+  kidCtx.fillText('KIDNEY',W*0.82,H*0.35);
+  kidCtx.font='9px IBM Plex Mono'; kidCtx.fillStyle='#7ba3c4';
+  kidCtx.fillText(`Aquaporins: ${adh>50?'↑ open':'↓ closed'}`,W*0.82,H*0.43);
+  kidCtx.textAlign='left';
+  // Arrows
+  const arrowX1=W*0.26,arrowX2=W*0.38; const arrowY=H*0.37;
+  kidCtx.strokeStyle='#7ba3c4'; kidCtx.lineWidth=1.5;
+  kidCtx.beginPath(); kidCtx.moveTo(arrowX1,arrowY); kidCtx.lineTo(arrowX2,arrowY); kidCtx.stroke();
+  kidCtx.beginPath(); kidCtx.moveTo(arrowX2-8,arrowY-5); kidCtx.lineTo(arrowX2,arrowY); kidCtx.lineTo(arrowX2-8,arrowY+5); kidCtx.stroke();
+  const ax2=W*0.59,ax3=W*0.71;
+  kidCtx.beginPath(); kidCtx.moveTo(ax2,arrowY); kidCtx.lineTo(ax3,arrowY); kidCtx.stroke();
+  kidCtx.beginPath(); kidCtx.moveTo(ax3-8,arrowY-5); kidCtx.lineTo(ax3,arrowY); kidCtx.lineTo(ax3-8,arrowY+5); kidCtx.stroke();
+  // Feedback arrow
+  kidCtx.strokeStyle='rgba(0,212,255,0.5)'; kidCtx.setLineDash([5,4]); kidCtx.lineWidth=1.5;
+  kidCtx.beginPath(); kidCtx.moveTo(W*0.82,H*0.46); kidCtx.lineTo(W*0.82,H*0.72); kidCtx.lineTo(W*0.15,H*0.72); kidCtx.lineTo(W*0.15,H*0.46); kidCtx.stroke();
+  kidCtx.setLineDash([]);
+  kidCtx.fillStyle='rgba(0,212,255,0.7)'; kidCtx.font='9px IBM Plex Mono'; kidCtx.textAlign='center';
+  kidCtx.fillText('⟵ Negative feedback: water reabsorbed → blood normalises → ADH drops',W*0.5,H*0.82);
+  kidCtx.textAlign='left';
+}
+function updateKidney(){
+  const v=+document.getElementById('kidney-slider').value;
+  document.getElementById('kidney-val').textContent=v+'%';
+  let status='';
+  if(v<30) status='🚨 SEVERELY DEHYDRATED: Very high ADH, maximum water reabsorption, very concentrated dark urine.';
+  else if(v<55) status='⚠️ DEHYDRATED: High ADH, increased aquaporins, concentrated urine, low volume.';
+  else if(v<80) status='✅ Normal hydration. ADH at baseline. Moderate urine output.';
+  else status='💧 OVERHYDRATED: Low ADH, fewer aquaporins, dilute urine, high volume to excrete excess water.';
+  document.getElementById('kidney-status').textContent=status;
+  drawKidney();
+}
+
+// ===== PLANT CANVAS =====
+const plantCtx = document.getElementById('plant-canvas').getContext('2d');
+function resizePlant(){
+  const c=document.getElementById('plant-canvas');
+  c.width=c.offsetWidth*window.devicePixelRatio; c.height=c.offsetHeight*window.devicePixelRatio;
+  plantCtx.scale(window.devicePixelRatio, window.devicePixelRatio); drawPlant();
+}
+function drawPlant(){
+  const c=document.getElementById('plant-canvas');
+  const W=c.offsetWidth,H=c.offsetHeight;
+  const water=+document.getElementById('plant-slider').value;
+  plantCtx.clearRect(0,0,W,H); plantCtx.fillStyle='#060b11'; plantCtx.fillRect(0,0,W,H);
+  // Soil
+  const soilY=H*0.78;
+  var _r=Math.round(100*(1-water/100)+60), _g=Math.round(60+water*0.4);
+  plantCtx.fillStyle='rgba('+_r+','+_g+',40,0.6)';
+  plantCtx.fillRect(0,soilY,W,H-soilY);
+  plantCtx.fillStyle='#7ba3c4'; plantCtx.font='10px IBM Plex Mono';
+  plantCtx.fillText(`Soil water: ${water}%`,10,H*0.93);
+  // Stem
+  const turgid = water>40;
+  plantCtx.strokeStyle=turgid?'#5cb85c':'#8a6a1a'; plantCtx.lineWidth=8;
+  plantCtx.beginPath(); plantCtx.moveTo(W*0.5,soilY); plantCtx.lineTo(W*0.5,H*0.15); plantCtx.stroke();
+  // Leaves
+  const leafTilt = turgid?0:15;
+  [[0.5,0.35,-1],[0.5,0.5,1],[0.5,0.22,-1],[0.5,0.62,1]].forEach(([bx,by,dir])=>{
+    plantCtx.fillStyle=turgid?'rgba(40,180,60,0.7)':'rgba(120,100,30,0.6)';
+    plantCtx.save(); plantCtx.translate(W*bx,H*by);
+    plantCtx.rotate((leafTilt*dir*Math.PI)/180);
+    plantCtx.beginPath(); plantCtx.ellipse(dir*40,0,40,14,0,0,Math.PI*2); plantCtx.fill();
+    plantCtx.restore();
+    // Stomata
+    const stOpen = water>45;
+    const stomX=W*bx+dir*60; const stomY=H*by;
+    plantCtx.fillStyle=stOpen?'rgba(0,212,255,0.8)':'rgba(255,107,53,0.8)';
+    plantCtx.beginPath(); plantCtx.arc(stomX,stomY,stOpen?4:2,0,Math.PI*2); plantCtx.fill();
+  });
+  // Labels
+  plantCtx.font='10px IBM Plex Mono'; plantCtx.fillStyle='rgba(0,212,255,0.9)';
+  const stOpen=water>45;
+  plantCtx.fillText(`Stomata: ${stOpen?'OPEN 💧':'CLOSED (ABA) 🔒'}`, W*0.02, H*0.15);
+  plantCtx.fillStyle='rgba(127,255,127,0.9)';
+  plantCtx.fillText(`Turgor: ${turgid?'HIGH (vacuoles full)':'LOW (wilting)'}`, W*0.02, H*0.25);
+  if(!stOpen){
+    plantCtx.fillStyle='rgba(255,107,53,0.9)';
+    plantCtx.fillText('ABA released → guard cells lose turgor → stomata close', W*0.02, H*0.35);
+  }
+  // Water arrows
+  if(water>30){
+    plantCtx.strokeStyle='rgba(110,180,255,0.6)'; plantCtx.lineWidth=2; plantCtx.setLineDash([4,3]);
+    plantCtx.beginPath(); plantCtx.moveTo(W*0.5,soilY-5); plantCtx.lineTo(W*0.5,H*0.15); plantCtx.stroke();
+    plantCtx.setLineDash([]);
+    plantCtx.fillStyle='rgba(110,180,255,0.8)'; plantCtx.font='9px IBM Plex Mono';
+    plantCtx.fillText('↑ Water uptake via roots', W*0.54, H*0.6);
+  }
+}
+function updatePlant(){
+  const v=+document.getElementById('plant-slider').value;
+  document.getElementById('plant-val').textContent=v+'%';
+  let status='';
+  if(v<15) status='🚨 SEVERE DROUGHT: ABA high, stomata tightly closed, wilting. Risk of plant death.';
+  else if(v<40) status='⚠️ LOW WATER: ABA released, stomata closing. Turgor falling. Transpiration reduced.';
+  else if(v<70) status='✅ Adequate water. Stomata open for gas exchange. Normal photosynthesis.';
+  else status='💧 Abundant water. Stomata fully open. Rapid transpiration and photosynthesis.';
+  document.getElementById('plant-status').textContent=status;
+  drawPlant();
+}
+
+// ===== TABS =====
+function switchTab(group, tab) {
+  document.querySelectorAll(`#${group}-tabs .tab-btn`).forEach((btn,i)=>btn.classList.remove('active'));
+  document.querySelectorAll(`[id^="${group}-"]`).forEach(p=>{ if(p.classList.contains('tab-panel')) p.classList.remove('active'); });
+  event.currentTarget.classList.add('active');
+  document.getElementById(`${group}-${tab}`).classList.add('active');
+}
+
+// ===== QUIZ =====
+const allQuestions = [
+
+  {q:"Which of the following is an example of POSITIVE feedback?", opts:["Sweating when body temperature rises","Blood clotting after a vessel is damaged","ADH increasing water reabsorption when dehydrated","Insulin lowering blood glucose after a meal"], ans:1, feedback:"Blood clotting is positive feedback — each activated clotting factor amplifies the cascade until the clot forms (endpoint). The other options are all negative feedback (opposing/restoring)."},
+  {q:"In childbirth, oxytocin release is an example of positive feedback because:", opts:["It opposes uterine contractions to prevent pain","Each contraction stretches the cervix more, triggering more oxytocin and stronger contractions","Oxytocin lowers after each contraction to maintain a steady level","The hypothalamus inhibits oxytocin once contractions begin"], ans:1, feedback:"Classic positive feedback: baby presses cervix → oxytocin → contraction → more cervix stretch → more oxytocin → amplifying cycle until baby is born (endpoint), then oxytocin drops."},
+  {q:"In a negative feedback loop, the effector response will:", opts:["Amplify the original stimulus","Oppose and reverse the original stimulus","Maintain the stimulus at the same level","Have no effect on the set point"], ans:1, feedback:"Negative feedback OPPOSES the original change, restoring homeostasis. Positive feedback would amplify it."},
+  {q:"Which receptor type detects changes in blood CO₂ concentration?", opts:["Photoreceptors","Mechanoreceptors","Chemoreceptors","Nociceptors"], ans:2, feedback:"Chemoreceptors detect chemical changes including O₂, CO₂, and pH — crucial for regulating breathing."},
+  {q:"The myelin sheath speeds up nerve conduction because:", opts:["It makes the axon thicker","Saltatory conduction — impulse jumps between nodes of Ranvier","It increases the number of neurotransmitters","It makes the dendrites larger"], ans:1, feedback:"Saltatory conduction: the action potential jumps between gaps (nodes of Ranvier), massively increasing velocity compared to continuous conduction."},
+  {q:"Which describes the correct order of synaptic transmission?", opts:["Action potential → vesicle fusion → NT crosses cleft → receptor binding","Receptor binding → NT release → action potential → vesicle fusion","NT release → receptor binding → action potential → vesicle fusion","Vesicle fusion → action potential → NT crosses cleft → receptor binding"], ans:0, feedback:"Action potential arrives → Ca²⁺ enters → vesicles fuse → NT released → diffuses across cleft → binds receptors → signal transduction."},
+  {q:"ADH (antidiuretic hormone) acts on the kidney to:", opts:["Increase urine volume by reducing aquaporins","Decrease water reabsorption","Increase aquaporin expression in the collecting duct, increasing water reabsorption","Increase salt excretion"], ans:2, feedback:"ADH inserts aquaporin water channels into collecting duct membranes, allowing more water reabsorption → concentrated urine."},
+  {q:"Which thermoregulatory mechanism do humans use when too hot?", opts:["Shivering and vasoconstriction","Sweating and vasodilation","Brown adipose tissue activation","Piloerection (goosebumps)"], ans:1, feedback:"Sweating cools via evaporation; vasodilation brings warm blood to skin surface where heat is lost to the environment."},
+  {q:"Abscisic acid (ABA) causes stomata to:", opts:["Open wider to allow more CO₂ in","Close, reducing water loss via transpiration","Increase in number across the leaf surface","Move to the upper leaf surface"], ans:1, feedback:"ABA is the plant stress hormone. It triggers guard cells to lose turgor pressure, closing stomata and reducing water loss."},
+  {q:"A xerophyte (desert plant) would most likely have:", opts:["Many stomata on the upper leaf surface","Few sunken stomata on the lower leaf surface only","A very thin cuticle","No cuticle to allow maximum CO₂ entry"], ans:1, feedback:"Xerophytes minimise water loss: fewer stomata, sunken below leaf surface (creating a humid micro-environment), and thick waxy cuticles."},
+  {q:"Which statement about hormone sensitivity is correct?", opts:["All cells respond equally to the same hormone","A cell's sensitivity depends on the number of receptors it displays","Hormones only travel via the lymphatic system","More hormone always means less response"], ans:1, feedback:"Sensitivity is directly proportional to receptor number. More receptors = stronger response to the same hormone concentration."},
+  {q:"Aestivation is best described as:", opts:["A structural feature involving brown adipose tissue","A summer dormancy to survive heat/drought","A form of vasomotor control in the skin","Non-shivering thermogenesis in winter"], ans:1, feedback:"Aestivation is the summer equivalent of hibernation — animals enter a dormant state to survive hot, dry conditions (e.g. lungfish)."},
+];
+
+let currentQuiz = [];
+let answered = {};
+function buildQuiz(){
+  answered={};
+  // pick 5 random questions
+  const shuffled=[...allQuestions].sort(()=>Math.random()-0.5);
+  currentQuiz=shuffled.slice(0,5);
+  const cont=document.getElementById('quiz-container');
+  cont.innerHTML='';
+  currentQuiz.forEach((q,qi)=>{
+    const div=document.createElement('div');
+    div.className='quiz-q';
+    div.innerHTML=`<p>${qi+1}. ${q.q}</p>
+    <div class="quiz-options" id="qopts-${qi}">
+      ${q.opts.map((o,oi)=>`<button class="quiz-opt" id="qopt-${qi}-${oi}" onclick="selectAnswer(${qi},${oi})">${o}</button>`).join('')}
+    </div>
+    <div class="quiz-feedback" id="qfb-${qi}"></div>`;
+    cont.appendChild(div);
+  });
+  document.getElementById('quiz-score').style.display='none';
+}
+function selectAnswer(qi,oi){
+  if(answered[qi]!==undefined) return;
+  answered[qi]=oi;
+  document.querySelectorAll(`#qopts-${qi} .quiz-opt`).forEach(btn=>btn.style.opacity='0.6');
+  document.getElementById(`qopt-${qi}-${oi}`).style.opacity='1';
+}
+function checkQuiz(){
+  let score=0;
+  currentQuiz.forEach((q,qi)=>{
+    const sel=answered[qi];
+    if(sel===undefined){ document.getElementById(`qfb-${qi}`).textContent='⚠️ Not answered.'; return; }
+    if(sel===q.ans){
+      score++;
+      document.getElementById(`qopt-${qi}-${sel}`).classList.add('correct');
+      document.getElementById(`qfb-${qi}`).textContent='✅ Correct! '+q.feedback;
+    } else {
+      document.getElementById(`qopt-${qi}-${sel}`).classList.add('wrong');
+      document.getElementById(`qopt-${qi}-${q.ans}`).classList.add('correct');
+      document.getElementById(`qfb-${qi}`).textContent='❌ Incorrect. '+q.feedback;
+    }
+  });
+  const sc=document.getElementById('quiz-score');
+  sc.style.display='block';
+  const pct=Math.round(score/currentQuiz.length*100);
+  const col=pct>=80?'var(--accent3)':pct>=60?'var(--accent4)':'var(--accent2)';
+  sc.style.background=`rgba(${pct>=80?'127,255,127':pct>=60?'255,215,0':'255,107,53'},0.1)`;
+  sc.style.border=`1px solid ${col}`;
+  sc.style.color=col;
+  sc.textContent=`Score: ${score}/${currentQuiz.length} (${pct}%) — ${pct>=80?'Excellent! 🎉':pct>=60?'Good effort! 📚':'Keep studying! 💪'}`;
+}
+function resetQuiz(){ buildQuiz(); }
+
+
+// ===== BLOOD CLOTTING POSITIVE FEEDBACK =====
+var clotCanvas = document.getElementById('clot-canvas');
+var clotCtx = clotCanvas ? clotCanvas.getContext('2d') : null;
+var clotState = 'idle';
+var clotPhase = 0;
+var clotAnimFrame = null;
+var clotT = 0;
+var clotParticles = [];
+var clotFibrin = [];
+var clotPlatelets = [];
+
+function resizeClot() {
+  if (!clotCanvas) return;
+  clotCanvas.width = clotCanvas.offsetWidth * window.devicePixelRatio;
+  clotCanvas.height = clotCanvas.offsetHeight * window.devicePixelRatio;
+  clotCtx.scale(window.devicePixelRatio, window.devicePixelRatio);
+  drawClot();
+}
+
+function drawClot() {
+  if (!clotCtx) return;
+  var W = clotCanvas.offsetWidth, H = clotCanvas.offsetHeight;
+  clotCtx.clearRect(0, 0, W, H);
+  clotCtx.fillStyle = '#060b11'; clotCtx.fillRect(0, 0, W, H);
+
+  // Blood vessel walls
+  var vTop = H * 0.28, vBot = H * 0.72;
+  clotCtx.fillStyle = 'rgba(180,30,30,0.18)';
+  clotCtx.fillRect(0, 0, W, vTop);
+  clotCtx.fillRect(0, vBot, W, H - vBot);
+  clotCtx.strokeStyle = '#c0392b'; clotCtx.lineWidth = 2;
+  clotCtx.beginPath(); clotCtx.moveTo(0, vTop); clotCtx.lineTo(W, vTop); clotCtx.stroke();
+  clotCtx.beginPath(); clotCtx.moveTo(0, vBot); clotCtx.lineTo(W, vBot); clotCtx.stroke();
+  clotCtx.fillStyle = '#7ba3c4'; clotCtx.font = '10px IBM Plex Mono';
+  clotCtx.fillText('Vessel Wall', 8, vTop - 6);
+  clotCtx.fillText('Blood Vessel Lumen', 8, (vTop + vBot) / 2 + 4);
+
+  // Injury site
+  if (clotPhase >= 1) {
+    var injX = W * 0.25;
+    clotCtx.strokeStyle = '#ff4757'; clotCtx.lineWidth = 3;
+    clotCtx.beginPath(); clotCtx.moveTo(injX - 12, vTop - 2); clotCtx.lineTo(injX + 12, vTop + 12); clotCtx.stroke();
+    clotCtx.fillStyle = '#ff4757'; clotCtx.font = '10px IBM Plex Mono';
+    clotCtx.fillText('INJURY', injX - 20, vTop - 10);
+  }
+
+  // Floating clotting factor particles
+  clotParticles.forEach(function(p) {
+    var alpha = p.activated ? 1 : 0.5;
+    var col = p.activated ? '#ff6b35' : '#7ba3c4';
+    clotCtx.fillStyle = col; clotCtx.globalAlpha = alpha;
+    clotCtx.beginPath(); clotCtx.arc(p.x * W, p.y * H, p.activated ? 6 : 4, 0, Math.PI * 2); clotCtx.fill();
+    clotCtx.globalAlpha = 1;
+    clotCtx.fillStyle = col; clotCtx.font = '8px IBM Plex Mono'; clotCtx.textAlign = 'center';
+    clotCtx.fillText(p.label, p.x * W, p.y * H + 3);
+    clotCtx.textAlign = 'left';
+  });
+
+  // Fibrin mesh
+  clotCtx.strokeStyle = 'rgba(255,215,0,0.7)'; clotCtx.lineWidth = 1.5;
+  clotFibrin.forEach(function(f) {
+    clotCtx.beginPath();
+    clotCtx.moveTo(f.x1 * W, f.y1 * H);
+    clotCtx.lineTo(f.x2 * W, f.y2 * H);
+    clotCtx.stroke();
+  });
+
+  // Platelets
+  clotPlatelets.forEach(function(p) {
+    clotCtx.fillStyle = 'rgba(255,100,100,0.8)'; clotCtx.strokeStyle = '#ff6b35'; clotCtx.lineWidth = 1;
+    clotCtx.beginPath(); clotCtx.arc(p.x * W, p.y * H, 5, 0, Math.PI * 2); clotCtx.fill(); clotCtx.stroke();
+  });
+
+  // Phase label bar
+  var phases = ['', 'Vessel damaged — platelets adhere, collagen exposed', 'Clotting factors activating (cascade begins)', 'Thrombin converting fibrinogen → fibrin', 'Fibrin mesh trapping platelets — CLOT FORMING!', 'CLOT COMPLETE — positive feedback loop ends'];
+  if (clotPhase > 0 && clotPhase < phases.length) {
+    clotCtx.fillStyle = 'rgba(255,107,53,0.85)'; clotCtx.font = '11px IBM Plex Mono'; clotCtx.textAlign = 'center';
+    clotCtx.fillText('Phase ' + clotPhase + ': ' + phases[clotPhase], W / 2, H * 0.96);
+    clotCtx.textAlign = 'left';
+  }
+
+  // Amplification arrows between activated factors
+  if (clotPhase >= 3) {
+    clotCtx.strokeStyle = 'rgba(255,107,53,0.5)'; clotCtx.lineWidth = 1; clotCtx.setLineDash([3, 3]);
+    for (var i = 0; i < clotParticles.length - 1; i++) {
+      if (clotParticles[i].activated && clotParticles[i+1] && !clotParticles[i+1].activated) {
+        clotCtx.beginPath();
+        clotCtx.moveTo(clotParticles[i].x * W, clotParticles[i].y * H);
+        clotCtx.lineTo(clotParticles[i+1].x * W, clotParticles[i+1].y * H);
+        clotCtx.stroke();
+      }
+    }
+    clotCtx.setLineDash([]);
+  }
+}
+
+function animateClot() {
+  clotT++;
+  var W = clotCanvas.offsetWidth, H = clotCanvas.offsetHeight;
+
+  // Activate particles progressively
+  var toActivate = Math.floor(clotT / 18);
+  for (var i = 0; i < Math.min(toActivate, clotParticles.length); i++) {
+    if (!clotParticles[i].activated) {
+      clotParticles[i].activated = true;
+    }
+  }
+
+  // Move unactivated particles
+  clotParticles.forEach(function(p) {
+    if (!p.activated) {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0.05 || p.x > 0.95) p.vx *= -1;
+      if (p.y < 0.32 || p.y > 0.68) p.vy *= -1;
+    }
+  });
+
+  // Add fibrin strands in phase 4+
+  if (clotPhase >= 4 && clotT % 4 === 0 && clotFibrin.length < 40) {
+    var cx = 0.22 + Math.random() * 0.12;
+    var cy = 0.38 + Math.random() * 0.24;
+    clotFibrin.push({
+      x1: cx + (Math.random() - 0.5) * 0.08,
+      y1: cy + (Math.random() - 0.5) * 0.15,
+      x2: cx + (Math.random() - 0.5) * 0.08,
+      y2: cy + (Math.random() - 0.5) * 0.15
+    });
+  }
+
+  // Add platelets in phase 4+
+  if (clotPhase >= 4 && clotT % 6 === 0 && clotPlatelets.length < 20) {
+    clotPlatelets.push({
+      x: 0.20 + Math.random() * 0.14,
+      y: 0.36 + Math.random() * 0.28
+    });
+  }
+
+  // Advance phase
+  if (clotT === 25) { clotPhase = 2; document.getElementById('clot-status').textContent = 'Clotting factors activating — each one triggers the next (amplification)!'; document.getElementById('clot-status').style.color = 'var(--accent2)'; }
+  if (clotT === 50) { clotPhase = 3; document.getElementById('clot-status').textContent = 'Thrombin activated! Converting fibrinogen to fibrin — mesh forming...'; }
+  if (clotT === 75) { clotPhase = 4; document.getElementById('clot-status').textContent = 'Fibrin mesh trapping platelets — clot growing rapidly (positive feedback peak)!'; }
+  if (clotT === 130) {
+    clotPhase = 5;
+    document.getElementById('clot-status').textContent = 'CLOT COMPLETE. Bleeding stopped. Positive feedback loop ends — anticoagulants prevent further spread.';
+    document.getElementById('clot-status').style.color = 'var(--accent3)';
+    cancelAnimationFrame(clotAnimFrame);
+    clotState = 'done';
+    drawClot();
+    return;
+  }
+
+  drawClot();
+  clotAnimFrame = requestAnimationFrame(animateClot);
+}
+
+function startClot() {
+  if (clotState === 'running') return;
+  resetClot();
+  clotState = 'running'; clotPhase = 1; clotT = 0;
+  // Create floating clotting factor particles
+  var labels = ['F XII', 'F XI', 'F IX', 'F X', 'Thrombin', 'Fibrin'];
+  clotParticles = [];
+  for (var i = 0; i < labels.length; i++) {
+    clotParticles.push({
+      x: 0.35 + i * 0.1,
+      y: 0.38 + (i % 2) * 0.22,
+      vx: (Math.random() - 0.5) * 0.004,
+      vy: (Math.random() - 0.5) * 0.003,
+      activated: false,
+      label: labels[i]
+    });
+  }
+  document.getElementById('clot-status').textContent = 'Vessel damaged! Collagen exposed, platelets adhering — cascade starting...';
+  document.getElementById('clot-status').style.color = 'var(--accent2)';
+  animateClot();
+}
+
+function resetClot() {
+  cancelAnimationFrame(clotAnimFrame);
+  clotState = 'idle'; clotPhase = 0; clotT = 0;
+  clotParticles = []; clotFibrin = []; clotPlatelets = [];
+  document.getElementById('clot-status').textContent = 'Ready. Click "Injure Vessel" to begin the coagulation cascade.';
+  document.getElementById('clot-status').style.color = 'var(--muted)';
+  drawClot();
+}
+
+// ===== CHILDBIRTH OXYTOCIN POSITIVE FEEDBACK =====
+var birthCanvas = document.getElementById('birth-canvas');
+var birthCtx = birthCanvas ? birthCanvas.getContext('2d') : null;
+var birthState = 'idle';
+var birthT = 0;
+var birthAnimFrame = null;
+var oxyLevel = 0;
+var contractionStrength = 0;
+var contractionPhase = 0;
+var birthComplete = false;
+var oxyParticles = [];
+
+function resizeBirth() {
+  if (!birthCanvas) return;
+  birthCanvas.width = birthCanvas.offsetWidth * window.devicePixelRatio;
+  birthCanvas.height = birthCanvas.offsetHeight * window.devicePixelRatio;
+  birthCtx.scale(window.devicePixelRatio, window.devicePixelRatio);
+  drawBirth();
+}
+
+function drawBirth() {
+  if (!birthCtx) return;
+  var W = birthCanvas.offsetWidth, H = birthCanvas.offsetHeight;
+  birthCtx.clearRect(0, 0, W, H);
+  birthCtx.fillStyle = '#060b11'; birthCtx.fillRect(0, 0, W, H);
+
+  // Uterus shape
+  var ux = W * 0.1, uy = H * 0.15, uw = W * 0.35, uh = H * 0.7;
+  var squeeze = Math.min(contractionStrength * 0.18, 2.8);
+  var rx = Math.max(uw / 2 * (1 - squeeze * 0.18), 8);
+  var ry = Math.max(uh / 2 * (1 + squeeze * 0.06), 8);
+  birthCtx.fillStyle = 'rgba(200,60,80,0.15)';
+  birthCtx.strokeStyle = birthComplete ? '#7fff7f' : ('rgb(' + Math.round(160 + contractionStrength * 0.8) + ',60,80)');
+  birthCtx.lineWidth = 2.5;
+  birthCtx.beginPath();
+  birthCtx.ellipse(ux + uw / 2, uy + uh / 2, rx, ry, 0, 0, Math.PI * 2);
+  birthCtx.fill(); birthCtx.stroke();
+  birthCtx.fillStyle = '#e8f4fd'; birthCtx.font = '10px IBM Plex Mono'; birthCtx.textAlign = 'center';
+  birthCtx.fillText('UTERUS', ux + uw / 2, uy + uh / 2 - 10);
+  birthCtx.fillText(birthComplete ? 'BABY BORN!' : ('Contraction: ' + Math.round(contractionStrength) + '%'), ux + uw / 2, uy + uh / 2 + 8);
+  birthCtx.textAlign = 'left';
+
+  // Cervix
+  var cervY = uy + uh * 0.85;
+  var cervOpen = Math.min(contractionStrength / 100 * 30, 30);
+  birthCtx.strokeStyle = '#a855f7'; birthCtx.lineWidth = 2;
+  birthCtx.beginPath(); birthCtx.moveTo(ux + uw / 2 - 15, cervY); birthCtx.lineTo(ux + uw / 2 - cervOpen, cervY + 12); birthCtx.stroke();
+  birthCtx.beginPath(); birthCtx.moveTo(ux + uw / 2 + 15, cervY); birthCtx.lineTo(ux + uw / 2 + cervOpen, cervY + 12); birthCtx.stroke();
+  birthCtx.fillStyle = '#a855f7'; birthCtx.font = '9px IBM Plex Mono'; birthCtx.textAlign = 'center';
+  birthCtx.fillText('cervix', ux + uw / 2, cervY + 22);
+  birthCtx.textAlign = 'left';
+
+  // Pituitary / hypothalamus box
+  var px = W * 0.55, py = H * 0.08;
+  birthCtx.fillStyle = 'rgba(168,85,247,0.15)'; birthCtx.strokeStyle = '#a855f7'; birthCtx.lineWidth = 1.5;
+  birthCtx.beginPath(); birthCtx.roundRect(px, py, W * 0.18, H * 0.2, 8); birthCtx.fill(); birthCtx.stroke();
+  birthCtx.fillStyle = '#a855f7'; birthCtx.font = '10px IBM Plex Mono'; birthCtx.textAlign = 'center';
+  birthCtx.fillText('Pituitary', px + W * 0.09, py + H * 0.08);
+  birthCtx.fillStyle = '#7ba3c4'; birthCtx.font = '9px IBM Plex Mono';
+  birthCtx.fillText('OXY: ' + Math.round(oxyLevel) + '%', px + W * 0.09, py + H * 0.15);
+  birthCtx.textAlign = 'left';
+
+  // Oxytocin level bar
+  var bx = W * 0.55, by = H * 0.36;
+  birthCtx.fillStyle = 'rgba(168,85,247,0.2)'; birthCtx.fillRect(bx, by, W * 0.38, 14);
+  birthCtx.fillStyle = 'rgba(168,85,247,' + (0.4 + oxyLevel / 200) + ')';
+  birthCtx.fillRect(bx, by, W * 0.38 * (oxyLevel / 100), 14);
+  birthCtx.strokeStyle = '#a855f7'; birthCtx.lineWidth = 1; birthCtx.strokeRect(bx, by, W * 0.38, 14);
+  birthCtx.fillStyle = '#a855f7'; birthCtx.font = '10px IBM Plex Mono';
+  birthCtx.fillText('Oxytocin Level', bx, by - 4);
+
+  // Contraction strength bar
+  var cx2 = W * 0.55, cy2 = H * 0.58;
+  birthCtx.fillStyle = 'rgba(255,107,53,0.2)'; birthCtx.fillRect(cx2, cy2, W * 0.38, 14);
+  birthCtx.fillStyle = 'rgba(255,107,53,' + (0.4 + contractionStrength / 200) + ')';
+  birthCtx.fillRect(cx2, cy2, W * 0.38 * (contractionStrength / 100), 14);
+  birthCtx.strokeStyle = '#ff6b35'; birthCtx.lineWidth = 1; birthCtx.strokeRect(cx2, cy2, W * 0.38, 14);
+  birthCtx.fillStyle = '#ff6b35'; birthCtx.font = '10px IBM Plex Mono';
+  birthCtx.fillText('Contraction Strength', cx2, cy2 - 4);
+
+  // Feedback arrows
+  if (birthState !== 'idle' && !birthComplete) {
+    birthCtx.strokeStyle = 'rgba(255,107,53,0.6)'; birthCtx.lineWidth = 1.5; birthCtx.setLineDash([4, 3]);
+    // Uterus -> cervix -> pituitary -> uterus loop arrow
+    birthCtx.beginPath();
+    birthCtx.moveTo(ux + uw / 2, cervY + 12);
+    birthCtx.quadraticCurveTo(W * 0.45, H * 0.88, px + W * 0.09, py + H * 0.2);
+    birthCtx.stroke();
+    birthCtx.setLineDash([]);
+    birthCtx.fillStyle = 'rgba(255,107,53,0.8)'; birthCtx.font = '9px IBM Plex Mono'; birthCtx.textAlign = 'center';
+    birthCtx.fillText('Stretch → more oxytocin!', W * 0.44, H * 0.88);
+    birthCtx.textAlign = 'left';
+  }
+
+  // Oxytocin particles streaming to uterus
+  oxyParticles.forEach(function(p) {
+    birthCtx.fillStyle = 'rgba(168,85,247,0.8)';
+    birthCtx.beginPath(); birthCtx.arc(p.x * W, p.y * H, 4, 0, Math.PI * 2); birthCtx.fill();
+  });
+
+  // Birth complete banner
+  if (birthComplete) {
+    birthCtx.fillStyle = 'rgba(127,255,127,0.12)'; birthCtx.fillRect(0, H * 0.35, W, H * 0.3);
+    birthCtx.fillStyle = '#7fff7f'; birthCtx.font = 'bold 18px IBM Plex Mono'; birthCtx.textAlign = 'center';
+    birthCtx.fillText('BABY BORN! Loop ends.', W / 2, H * 0.48);
+    birthCtx.fillStyle = '#7ba3c4'; birthCtx.font = '11px IBM Plex Mono';
+    birthCtx.fillText('Oxytocin drops — positive feedback complete.', W / 2, H * 0.58);
+    birthCtx.textAlign = 'left';
+  }
+}
+
+function animateBirth() {
+  birthT++;
+
+  // Escalate oxytocin and contractions (positive feedback)
+  if (!birthComplete) {
+    var growthRate = 0.008 + (oxyLevel / 100) * 0.015; // accelerates as oxy rises
+    oxyLevel = Math.min(oxyLevel + growthRate * 100 * 0.05, 100);
+    contractionStrength = Math.min(contractionStrength + growthRate * 100 * 0.06, 100);
+  }
+
+  // Oxytocin particles from pituitary to uterus
+  if (birthT % 20 === 0 && !birthComplete) {
+    oxyParticles.push({ x: 0.64, y: 0.28, vx: -0.012, vy: 0.01 });
+  }
+  oxyParticles.forEach(function(p) { p.x += p.vx; p.y += p.vy; });
+  oxyParticles = oxyParticles.filter(function(p) { return p.x > 0.05 && p.y < 0.9; });
+
+  // Status updates
+  if (oxyLevel > 20 && oxyLevel < 40) { document.getElementById('birth-status').textContent = 'Early labour: oxytocin rising, cervix dilating...'; document.getElementById('birth-status').style.color = 'var(--accent)'; }
+  if (oxyLevel >= 40 && oxyLevel < 70) { document.getElementById('birth-status').textContent = 'Active labour: contractions intensifying — positive feedback accelerating!'; document.getElementById('birth-status').style.color = 'var(--accent2)'; }
+  if (oxyLevel >= 70 && oxyLevel < 95) { document.getElementById('birth-status').textContent = 'Transition: maximum contractions! Oxytocin at peak. Birth imminent.'; document.getElementById('birth-status').style.color = 'var(--danger)'; }
+
+  if (oxyLevel >= 99 && !birthComplete) {
+    birthComplete = true;
+    oxyLevel = 5; contractionStrength = 5; // drop after birth
+    document.getElementById('birth-status').textContent = 'ENDPOINT REACHED: Baby born! Cervix no longer stretched. Oxytocin drops. Loop ends.';
+    document.getElementById('birth-status').style.color = 'var(--accent3)';
+    drawBirth();
+    cancelAnimationFrame(birthAnimFrame);
+    birthState = 'done';
+    return;
+  }
+
+  drawBirth();
+  birthAnimFrame = requestAnimationFrame(animateBirth);
+}
+
+function startBirth() {
+  if (birthState === 'running') return;
+  resetBirth();
+  birthState = 'running';
+  document.getElementById('birth-status').textContent = 'Labour beginning — baby pressing on cervix, stretch receptors firing...';
+  document.getElementById('birth-status').style.color = 'var(--accent)';
+  oxyLevel = 5; contractionStrength = 5;
+  animateBirth();
+}
+
+function resetBirth() {
+  cancelAnimationFrame(birthAnimFrame);
+  birthState = 'idle'; birthT = 0;
+  oxyLevel = 0; contractionStrength = 0; birthComplete = false; oxyParticles = [];
+  document.getElementById('birth-status').textContent = 'Ready. Click "Begin Labour" to start the oxytocin feedback loop.';
+  document.getElementById('birth-status').style.color = 'var(--muted)';
+  drawBirth();
+}
+
+// ===== INIT =====
+window.addEventListener('load',()=>{
+  resizeAP(); resizeSyn(); resizeHor(); resizeKidney(); resizePlant();
+  resizeClot(); resizeBirth();
+  buildQuiz();
+  updateThermo();
+  updateKidney();
+  updatePlant();
+});
+window.addEventListener('resize',()=>{
+  resizeAP(); resizeSyn(); resizeHor(); resizeKidney(); resizePlant();
+  resizeClot(); resizeBirth();
+});
+// roundRect polyfill
+if (!CanvasRenderingContext2D.prototype.roundRect) {
+  CanvasRenderingContext2D.prototype.roundRect = function(x,y,w,h,r){
+    this.beginPath();
+    this.moveTo(x+r,y);
+    this.lineTo(x+w-r,y); this.quadraticCurveTo(x+w,y,x+w,y+r);
+    this.lineTo(x+w,y+h-r); this.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+    this.lineTo(x+r,y+h); this.quadraticCurveTo(x,y+h,x,y+h-r);
+    this.lineTo(x,y+r); this.quadraticCurveTo(x,y,x+r,y);
+    this.closePath();
+  };
+}
+</script>
+</body>
+</html>
